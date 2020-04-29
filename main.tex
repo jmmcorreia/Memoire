@@ -1,0 +1,88 @@
+% \documentclass[11pt,twoside,notitlepage]{report}
+% %\usepackage[margin=1.5cm, right=2.3cm, left=2.3cm, top=2.2cm, bottom=1.4cm,includefoot]{geometry}
+% \usepackage{brufaceStyle}
+% \usepackage[utf8]{inputenc}
+% \usepackage[english,french,dutch]{babel}
+% \usepackage[T1]{fontenc}
+% \usepackage[hidelinks]{hyperref}
+% \usepackage{eurosym}
+% \usepackage{amsmath,amsfonts,amssymb}
+% \usepackage{rotating}
+% \usepackage{graphicx} %Import Images
+% \usepackage[table,xcdraw]{xcolor}
+% %\usepackage{tikz}
+%
+% \usepackage{pdfpages}
+% % \documentclass[tikz,border=2mm]{standalone}
+% \usepackage{geometry}
+% \usepackage{pdflscape}
+% \usepackage{afterpage}
+%
+% \usepackage{titlesec}
+%
+% \setcounter{secnumdepth}{4}
+%
+% \titleformat{\paragraph}
+% {\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+% \titlespacing*{\paragraph}
+% {0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\documentclass[a4paper, 12pt]{report}
+
+\usepackage[utf8]{inputenc}
+%\usepackage[french]{babel}
+\usepackage{color}
+\usepackage[top=2.5cm, bottom=1.5cm, left=2.5cm, right=1cm]{geometry}
+\usepackage[pdftex]{graphicx}
+\usepackage{tikz}
+\usepackage{url}
+
+% Logos
+\newcommand{\ulb}{\includegraphics[scale=1.1]{img/front_page/logo_ULB2.pdf}}
+\newcommand{\polytech}{\includegraphics[scale=0.35]{img/front_page/logo_polytech_FR.pdf}}
+
+% Polices
+\definecolor{ULBblue}{rgb}{0,0.2196,0.5765}
+\newcommand{\fontTitle}{\sffamily \Huge\selectfont \color{ULBblue}}
+\newcommand{\fontSubtitle}{\sffamily \LARGE \selectfont \color{ULBblue}}
+\newcommand{\fontText}{\sffamily \selectfont}
+\newcommand{\fontColor}{\sffamily \selectfont \color{ULBblue}}
+
+% Titre
+\newcommand{\titleA}{\fontTitle{Première ligne de titre du mémoire}} % Titre identique au titre remis au secrétariat
+\newcommand{\titleB}{\fontTitle{Deuxième ligne de titre du mémoire}} % (dans la langue de rédaction a priori)
+% Sous-titre
+\newcommand{\subtitle}{\fontSubtitle{Ligne du sous-titre du mémoire}}
+% Titre du diplôme
+\newcommand{\diplomaA}{\fontText{Mémoire présenté en vue de l’obtention du diplôme}} % A laisser en Français
+\newcommand{\diplomaB}{\fontText{d'Ingénieur Civil [...] à finalité [...]}}
+
+% Etudiant
+\newcommand{\student}{\textbf{\sffamily \large [Prénom Nom]}}
+
+% Supervision
+\newcommand{\promAa}{\fontColor{Directeur}}
+\newcommand{\promAb}{\fontText{Professeur [Prénom Nom]}}
+\newcommand{\promBa}{\fontColor{Co-Promoteur}}
+\newcommand{\promBb}{\fontText{Professeur [Prénom Nom]}}
+\newcommand{\promCa}{\fontColor{Superviseur}}
+\newcommand{\promCb}{\fontText{[Prénom Nom]}}
+\newcommand{\deptA}{\fontColor{Service}}
+\newcommand{\deptB}{\fontText{[Nom du service]}}
+
+% Année académique
+\newcommand{\yearA}{\fontColor{Année académique}}
+\newcommand{\yearB}{\fontText{20xx - 20xx}}
+
+
+\begin{document}
+\input{front_page.tex}
+\tableofcontents
+\newpage
+
+\input{src/table.tex}
+
+
+\bibliographystyle{unsrt}
+\bibliography{src/bibliography}
+\end{document}
