@@ -143,6 +143,33 @@ Indépendamment de l’architecture utilisée, toutes les informations recueilli
 De ce fait, les bases de données orientées séries temporelles offrent un stockage plus efficace pour les métriques surveillées. Un dernier aspect très important d’une solution de monitoring est la visualisation de données. La majorité des solutions offrent soit un outil de visualisation propriétaire (Nagios ou Zabbix), soit elles exploitent des outils existants tels que Grafana (Prometheus et le TIG Stack).
 
 
-
-
 \section{Plateformes de visualisation de données}
+
+\textbf{Cette section n'est pas encore terminée.}
+
+~
+
+La visualisation de données consiste à représenter plusieurs formats de données sous un format visuel tel que les graphiques. Le système visuel humain est capable d’identifier des tendances ou des aberrations. Le but de la visualisation des données consiste alors dans l’aide de la compréhension des données en exploitant cette capacité. \cite{zoo_data}
+
+~
+
+\noindent
+Les outils de visualisations de données sont alors des solutions software qui aident à accomplir cet objectif. \cite{bikakis2018big} Ces outils fournissent une plateforme très puissante pour communiquer de l’information. Cependant, le concept de données est trop abstrait. En effet, elles peuvent être des coordonnées spatiales, les mesures de température d’une pièce, le nombre d’occurrences d’un évènement, le classement d’une course automobile, etc. Pour chacun de ces différents types de données, la méthode de visualisation à utiliser est différente. Par exemple, une carte serait utilisée pour afficher les coordonnées, mais une courbe serait préférée pour afficher l’évolution de la température. L’article \cite{zoo_data} propose différentes méthodes et graphiques pour observer les différents types de données existants.
+
+~
+
+\noindent
+Comme présenté dans [source], la visualisation de données doit respecter les trois principes suivants :
+Thrustworthy, accessible, and elegant
+
+~
+
+Avec l’arrivée de l’ère du Big Data, les technologies de visualisation sont devenues d’autant plus importantes. En effet, la quantité de données est devenue tellement importante au point qu’un humain n’est plus capable d’analyser toutes les données. Ceci coïncide avec l’apparition de nouvelles technologies capables de mieux guider l’utilisateur à trouver des tendances dans les données. Actuellement, trois grandes catégories d’outils de visualisations de données sont disponibles :
+
+\begin{itemize}
+  \item Les librairies software, telles que Matplotlib ou D3.js , qui aident les utilisateurs à créer de différentes visualisations de données. Ces outils demandent des compétences en programmation.
+
+  \item Ensuite, il y a les outils purement pour la visualisation de données tels que Grafana ou Google Data Studio. À partir d’une interface web, ces outils permettent de facilement créer des graphiques en utilisant seulement des langages de requête comme SQL. Certains de ces outils sont capables d’auxilier l’utilisateur à formuler des requêtes. (Query Builders)
+
+  \item Finalement, il y a les outils de Business Intelligence. Ils ont les mêmes fonctionnalités qu’un outil de visualisation de données. Cependant, ils permettent en plus de cela de faire un traitement des données et des prédictions sur celles-ci. Un exemple d’un tel outil est Tableau ou Power BI.
+\end{itemize}
