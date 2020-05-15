@@ -3,7 +3,7 @@
 \section{Le premier prototype (2018-2019)}
 
 \noindent
-Dans le cadre du projet d’année de la première année du Master ingénieur civil en informatique, un prototype capable de surveiller l’infrastructure de CERHIS a été réalisé. Ce dispositif s’inspirait sur d’autres prototypes plus anciens créés par des étudiants de l’école polytechnique de Bruxelles. L’architecture du dispositif produit l’année dernière est présentée sur la figure \ref{fig:archi_prev}.
+Dans le cadre du projet d'année de la première année du Master ingénieur civil en informatique, un prototype capable de surveiller l'infrastructure de CERHIS a été réalisé. Ce dispositif s'inspirait sur d'autres prototypes plus anciens créés par des étudiants de l'École polytechnique de Bruxelles. L'architecture du dispositif produit l'année dernière est présentée sur la figure \ref{fig:archi_prev}.
 
 ~
 
@@ -16,12 +16,12 @@ Dans le cadre du projet d’année de la première année du Master ingénieur c
 
 
 \noindent
-Un Raspberry Pi 2B était utilisé pour tourner le logiciel de monitoring ainsi que l’interface web permettant la configuration de celui-ci. Un circuit imprimé (PCB) avait été réalisé dans le but de loger des composants électroniques différents tels que le module de communication GSM SIM800L et le convertisseur analogique numérique MCP3008. Ce même circuit imprimé s’insérait sur les ports GPIO du Raspberry Pi afin que ce dernier puisse interfacer avec les différents composants présents sur le PCB. Grâce au SIM800L, le réseau GSM d’un opérateur mobile local pouvait être utilisé pour envoyer des SMS vers un technicien, ou des informations quelques conques vers un serveur distant.  Dans ce premier essai, ce serveur était juste capable de recevoir les données envoyées par le prototype et de les stocker sur un fichier \textit{.txt}. Aucun traitement ou visualisation des données n’était offert aux techniciens. De plus, le monitoring des tablettes n'a pas pu être implémenté par manque de temps.
+Un Raspberry Pi 2B était utilisé pour tourner le logiciel de monitoring ainsi que l'interface web permettant la configuration de celui-ci. Un circuit imprimé (PCB) avait été réalisé dans le but de loger des composants électroniques différents tels que le module de communication GSM SIM800L et le convertisseur analogique numérique MCP3008. Ce même circuit imprimé s'insérait sur les ports GPIO du Raspberry Pi afin que ce dernier puisse interfacer avec les différents composants présents sur le PCB. Grâce au SIM800L, le réseau GSM d'un opérateur mobile local pouvait être utilisé pour envoyer des SMS vers un technicien, ou des informations quelques conques vers un serveur distant.  Dans ce premier essai, ce serveur était juste capable de recevoir les données envoyées par le prototype et de les stocker sur un fichier \textit{.txt}. Aucun traitement ou visualisation des données n'était offert aux techniciens. De plus, le monitoring des tablettes n'a pas pu être implémenté par manque de temps.
 
 ~
 
 \noindent
-De façon à alimenter le dispositif, un système d’alimentation mixte avait été mis en place. Comme le montre la figure \ref{fig:power_source}, ce système était basé sur une batterie acide-plomb de 12V, un régulateur de charge permettant de recharger la batterie et un convertisseur step-down transformant la tension de 12 à 5 volts.
+De façon à alimenter le dispositif, un système d'alimentation mixte avait été mis en place. Comme le montre la figure \ref{fig:power_source}, ce système était basé sur une batterie acide-plomb de 12V, un régulateur de charge permettant de recharger la batterie et un convertisseur step-down transformant la tension de 12 à 5 volts.
 
 ~
 
@@ -34,30 +34,30 @@ De façon à alimenter le dispositif, un système d’alimentation mixte avait �
 ~
 
 \noindent
-Ce prototype a été testé pendant plusieurs semaines\footnote{entre le 14 mars et le 10 avril 2019} à Goma par un étudiant de l’ISIG\footnote{Institut supérieur d'informatique et de gestion de Goma}. Lors de cette période de tests, plusieurs problèmes ont été identifiés. Ils seront présentés dans la section suivante.
+Ce prototype a été testé pendant plusieurs semaines\footnote{entre le 14 mars et le 10 avril 2019} à Goma par un étudiant de l'ISIG\footnote{Institut supérieur d'informatique et de gestion de Goma}. Lors de cette période de tests, plusieurs problèmes ont été identifiés. Ils seront présentés dans la section suivante.
 
 \subsection{Problèmes détectés}
 
-Plusieurs protocoles de tests avaient été mis en place l’année dernière dans le but d'évaluer ce premier dispositif. Les soucis qui ont été trouvés lors de ces tests peuvent être classés selon trois grandes catégories : communication, alimentation et température. Tous les problèmes sont documentés ci-dessous.
+Plusieurs protocoles de tests avaient été mis en place l'année dernière dans le but d'évaluer ce premier dispositif. Les soucis qui ont été trouvés lors de ces tests peuvent être classés selon trois grandes catégories : communication, alimentation et température. Tous les problèmes sont documentés ci-dessous.
 
 \begin{itemize}
   \item \textbf{Communication :}
   \begin{itemize}
-    \item Corruption de certaines données échangées entre le SIM800L et le Raspberry Pi. Des bits semblaient être modifiés lors de la transmission des messages entre les deux composants. Cela provoquait une perte d’informations. De plus, cela rendait plus difficile l'utilisation du SIM800L, car ce dernier n’était pas capable de traiter toutes les commandes qui lui étaient envoyées.
+    \item Corruption de certaines données échangées entre le SIM800L et le Raspberry Pi. Des bits semblaient être modifiés lors de la transmission des messages entre les deux composants. Cela provoquait une perte d'informations. De plus, cela rendait plus difficile l'utilisation du SIM800L, car ce dernier n'était pas capable de traiter toutes les commandes qui lui étaient envoyées.
 
-    \item Implémenter toutes les fonctionnalités de communication requises avec le SIM800L était très laborieux. En effet, ce module peut être vu comme un automate fini déterministe. Des commandes AT sont utilisées pour contrôler le module, c’est-à-dire qu'elles sont employées pour changer l’état de celui-ci. Une succession correcte de multiples commandes est nécessaire afin d'accomplir une simple tâche telle que l'envoi d'un SMS. Ceci rendait le procès d’implémentation assez long, en particulier l’implémentation de la gestion des erreurs. Le problème mentionné ci-dessus a encore plus aggravé la complexité de la manipulation de ce module.
+    \item Implémenter toutes les fonctionnalités de communication requises avec le SIM800L était très laborieux. En effet, ce module peut être vu comme un automate fini déterministe. Des commandes AT sont utilisées pour contrôler le module, c'est-à-dire qu'elles sont employées pour changer l'état de celui-ci. Une succession correcte de multiples commandes est nécessaire afin d'accomplir une simple tâche telle que l'envoi d'un SMS. Ceci rendait le procès d'implémentation assez long, en particulier l'implémentation de la gestion des erreurs. Le problème mentionné ci-dessus a encore plus aggravé la complexité de la manipulation de ce module.
   \end{itemize}
 
   \item \textbf{Alimentation :}
   \begin{itemize}
     \item Le régulateur de charge initialement utilisé est tombé en panne lors de la réalisation des tests. Un simple remplacement de cette pièce semble avoir résolu le problème.
 
-    \item Le transformateur step-down est tombé en panne lors des tests. Malheureusement, aucun remplacement pour cette pièce a été trouvé à Goma. Ce souci est possiblement lié au problème de température qui sera présenté ci-dessous. Cependant, n’ayant pas assez d’information pour prouver l‘existence d'un lien de causalité, chaque problème doit être considéré séparément.
+    \item Le step-down est tombé en panne lors des tests. Malheureusement, aucun remplacement pour cette pièce a été trouvé à Goma. Ce souci est possiblement lié au problème de température qui sera présenté ci-dessous. Cependant, n'ayant pas assez d'information pour prouver l'existence d'un lien de causalité, chaque problème doit être considéré séparément.
   \end{itemize}
 
   \item \textbf{Température :}
   \begin{itemize}
-    \item D’après les personnes en charge de tester le prototype, celui-ci semblait atteindre de hautes températures. Des températures élevées peuvent avoir un impact considérable sur la durée de vie des différents composants électroniques.
+    \item D'après les personnes en charge de tester le prototype, celui-ci semblait atteindre de hautes températures. Des températures élevées peuvent avoir un impact considérable sur la durée de vie des différents composants électroniques.
   \end{itemize}
 \end{itemize}
 
@@ -65,7 +65,443 @@ Plusieurs protocoles de tests avaient été mis en place l’année dernière da
 
 \section{Nouveau Prototype}
 
+Compte tenu des problèmes rencontrés l'année précédente, un nouveau prototype a dû être conçu. Toutefois, énormément d'informations ont été acquises au cours de l'année dernière. Il ne serait pas judicieux de partir de zéro, car cela demanderait un effort assez important pour atteindre le niveau précédent. Ce nouveau prototype correspond alors à une évolution du résultat de l'année antérieure, ayant comme but de combler toutes les lacunes de ce dernier. Le choix de remplacer chaque composant est abordé ci-dessous.
+
 \subsection{Solutions considérées}
+
+\subsubsection{Choix de la plateforme}
+
+Lors de l'année précédente, un Raspberry Pi 2B a été utilisé en tant que plateforme principale du projet. Ce modèle en particulier avait été choisi en raison de sa consommation énergétique plus faible que celle des modèles suivants, tout en offrant des performances amplement suffisantes. Depuis le projet antérieur, une nouvelle version est disponible sur le marché, le Raspberry Pi 4. Cependant, ce dernier présente une consommation énergétique encore plus élevée sans offrir de nouveaux avantages au projet. De ce fait, puisque le Raspberry Pi 2B s'est montré très fiable et qu'il restera en production jusqu'en 2026 \cite{rasp_prod}, il sera à nouveau utilisé dans ce nouveau prototype. Dans l'annexe (ajouter\_annexe), le tableau comparatif de toutes les solutions considérées l'année dernière est présent à titre de référence.
+
+
+\subsubsection{Solution de communication}
+
+
+La communication à distance est probablement un des éléments les plus complexes de ce projet. En effet, l'infrastructure des différents réseaux en Afrique Centrale est sous-développée comparée à l'infrastructure en Europe. De plus, la partie de la communication est celle qui a apporté le plus de problèmes l'année précédente, et celle dont les problèmes sont les plus difficiles à résoudre. De ce fait, cette partie doit être abordée avec caution et la décision doit être très pondérée.
+
+~
+
+\noindent
+Actuellement, le choix de réseaux accessibles en Afrique centrale est très restreint. En particulier, les réseaux orientés IoT (LTE-M, NB-IoT, Sigfox, LoRaWAN) ne sont actuellement pas disponibles dans la majorité des pays en Afrique Centrale ou leur couverture est extrêmement limitée.
+De plus, les réseaux Sigfox et LoRaWAN\footnote{Les contraintes sur la quantité de données pour les réseaux LoRaWAN ne sont applicables que sur les réseaux publics.} sont très contraignants sur la quantité de données qui peut être envoyée sur une journée. De ce fait, ils ne s'encadrent pas dans le cahier des charges de ce projet. Le satellite aurait été le choix incontestable si le coût n'était pas un facteur limitant. Les options restantes telles que le Wi-Fi et le Bluetooth ont une portée très courte.  Les réseaux mobiles se présentent donc comme étant le meilleur compromis entre disponibilité, coût et consommation énergétique. L'accès à ces derniers est relativement facile, et la couverture des réseaux 2G et 3G semble être relativement bonne dans les régions plus densement peuplées. \cite{coverage_airtel, coverage_orange}
+
+
+~
+
+\noindent
+Toutefois, le développement des réseaux mobiles orientés IoT (NB-IoT et LTE-M) dans ces pays doit être suivi de près au cours des prochaines années. Ils s'encadrent dans l'esprit de ce projet et offrent potentiellement un meilleur compromis que les réseaux mobiles classiques en raison de leur plus grande portée et de leur faible consommation énergétique.  Un autre aspect important à surveiller est la suppression des réseaux 2G au cours des années qui suivent. Cependant, vu le retard de l'infrastructure dans certains pays d'Afrique Centrale, il est très peu probable que cela ait lieu prochainement.
+
+~
+
+\noindent
+Les réseaux mobiles proposent plusieurs protocoles pour transmettre des données. Afin de choisir le protocole le plus approprié pour ce projet, il est d'abord nécessaire de comprendre exactement quels types de communication sont requis. En premier lieu, il faut considérer la communication de machine à personne. Le prototype doit être capable d'envoyer un message d'alerte à un technicien. Le cahier des charges impose que ce type de communication soit effectué par SMS. Les techniciens ayant tous accès à un téléphone, cette méthode semble être la plus efficace pour communiquer avec eux.
+
+~
+
+\noindent
+Ensuite, il y a la communication de machine à machine (M2M). Le prototype doit être capable d'envoyer les données recueillies vers un serveur distant qui les rendra accessibles aux techniciens. Cet échange de données peut être effectué également par SMS. Cependant, comme démontré dans le rapport de l'année dernière, le SMS est une méthode très coûteuse pour l'envoi de données M2M. D'autres protocoles permettent de transporter des données à un moindre coût comme l'USSD et le GPRS/HSPA/LTE. De ce fait, une comparaison a été effectuée afin de comprendre les avantages de chaque protocole, ainsi que celui qui est le plus approprié pour ce prototype.
+
+
+~
+
+\noindent
+L'USSD, ou Unstructured Supplementary Service Data, est un protocole de communication présent dans les réseaux mobiles (GSM, 3G, 4G) qui permet à un client de communiquer avec les serveurs de l'opérateur du réseau mobile. L'USSD est un stateful protocol et les échanges de données entre le client et le serveur se font en temps réel.  Les opérateurs utilisent très souvent ce protocole pour donner accès à certains services spéciaux, tels que vérifier le solde restant dans une carte prépayée ($\*XXX\#$). L'USSD présente la caractéristique intéressante que toutes les connexions initiées par le client sont toujours routées vers les serveurs de l'opérateur de la carte SIM, même lorsque le client se trouve en itinérance \cite{lakshmi2017ussd}. Cela garantit que, indépendamment du lieu où se trouve le client dans le monde, l'échange d'informations se déroule toujours de manière similaire. De plus, cela permet aussi de diminuer les coûts élevés souvent associés à l'itinérance. Mais le protocole USSD possède bien d'autres avantages tels que :
+
+
+\begin{itemize}
+  \item Aucune configuration supplémentaire n'est requise pour utiliser l'USSD dans le réseau d'un opérateur. Au contraire, l'Access Point Name doit être configuré avant d'avoir accès au service GPRS.
+
+  \item Le protocole USSD utilise moins de ressources d'un modem ou du réseau d'un opérateur que le GPRS. \cite{global_ussd}
+
+  \item Le protocole USSD reste disponible même lorsque la connectivité à Internet du réseau est coupée. En contrepartie, cela rendrait le service GPRS inexploitable.\cite{transport_ussd}
+
+  \item La majorité des modems sur le marché, dont le SIM800L, sont compatibles avec USSD. \cite{lakshmi2017ussd}
+\end{itemize}
+
+~
+
+\noindent
+Cependant, le protocole USSD possède aussi les désavantages suivants :
+
+\begin{itemize}
+  \item Déployer une application utilisant USSD est très difficile puisque cela demande de travailler de très près avec un opérateur de télécommunications. En effet, toutes les connexions sont dirigées vers les serveurs de ces derniers. \cite{perrier2015ussd}
+
+  \item Lié au problème précédent, le protocole USSD ne donne pas directement accès à Internet. De ce fait, il n'est par exemple pas trivial d'utiliser un protocole application tel que HTTP pour envoyer des données vers un serveur.
+\end{itemize}
+
+~
+
+\noindent
+Pour pallier ce dernier problème, une solution assez particulière est exploitée actuellement dans certains pays en Afrique \cite{africa_ussd}. Elle permet aux utilisateurs d'accéder à des services qui ne sont disponibles que sur Internet, mais à travers le protocole USSD. La figure \ref{fig:ussdex} illustre comment fonctionne cette solution. Le serveur USSD joue le rôle de proxy et convertit les messages USSD initialement envoyés par le client en requêtes HTTP à envoyer à un serveur distant. Malheureusement, cette solution n'est disponible que dans un nombre restreint de pays, mais une solution similaire pourrait être éventuellement utilisée pour envoyer les données au serveur distant.
+
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=0.90\textwidth]{img/el_prototype/ussd_examples.png}
+  \caption{Architecture simplifiée d'une solution USSD permettant d'accéder à des services sur Internet}
+  \label{fig:ussdex}
+\end{figure}
+
+~
+
+\noindent
+L'alternative à l'USSD est de recourir aux normes General Packet Radio Service (GPRS), High Speed Packet Access (HSPA) ou Long Term Evolution (LTE) pour transmettre des données. Ces normes permettent de communiquer des données à travers le réseau de l'opérateur et fournissent au client un accès à Internet. Les protocoles de la couche application tels que HTTP sont très souvent utilisés en conjonction avec ces normes. Un exemple est l'emploi d'un smartphone connecté à Internet par le biais de données mobiles pour accéder à un site web. Ce niveau d'abstraction supplémentaire facilite l'utilisation de cette solution.
+
+~
+
+\noindent
+Trancher entre l'USSD et le GPRS n'est pas simple. D'une part, l'USSD semble offrir une solution très fiable qui est couramment employée dans plusieurs pays africains. De l'autre côté, le GPRS permettrait d'exploiter les avantages d'une connexion standard à Internet et tous les protocoles d'application qui viennent avec. De ce fait, une comparaison entre les possibles de chaque solution a été effectuée.
+
+\newpage
+
+
+~
+
+\vspace{-0.5cm}
+\textbf{Solution 1: Routeur LTE (GPRS/HSPA/LTE)}
+
+\vspace{-0.2cm}
+~
+
+\noindent
+Dans cette première implémentation, l'idée était de remplacer le module SIM800L par un routeur LTE. Ce type de routeur est capable de se connecter aux réseaux mobiles afin de permettre aux clients d'accéder à Internet. Toute la partie bas niveau des réseaux serait alors traitée par le Raspberry Pi et le routeur. De ce fait, le logiciel de monitoring n'aurait besoin que d'utiliser des protocoles de la couche application, simplifiant donc l'implémentation du logiciel. Certains de ces routeurs peuvent aussi être raccordés à un deuxième réseau WAN\footnote{Wide Area Network ou réseau étendu en français}, comme une potentielle connexion Internet du centre hospitalier. Cette solution est la seule à proposer ce type de redondance. Cependant, les routeurs 4G sont assez coûteux, principalement ceux destinés à des environnements industriels. Un investissement d'au moins 70 ou 80 euros serait requis pour acquérir tel dispositif. De plus, leur consommation énergétique est assez élevée comparée au SIM800L puisque les routeurs proposent un grand nombre de fonctionnalités telles que le Wi-Fi et plusieurs ports Ethernet. La figure \ref{fig:so1} illustre l'architecture simplifiée de cette solution.
+
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=0.93\textwidth]{img/el_prototype/solution1_com.png}
+  \caption{Architecture simplifiée de la solution de communication avec un router LTE}
+  \label{fig:so1}
+\end{figure}
+
+~
+
+\textbf{Solution 2: Service USSD avec SIM800L}
+
+\vspace{-0.2cm}
+~
+
+\noindent
+Jusqu'à il y a quelques années, déployer une application USSD était assez complexe puisque l'aide d'un opérateur était nécessaire \cite{perrier2015ussd}. Toutefois, sont apparues récemment sur le marché des entreprises qui offrent des services de communication exploitant la technologie USSD. En fonction de l'entreprise en question, la couverture du service ainsi que ses fonctionnalités diffèrent. Utiliser une telle solution permet de très aisément exploiter les avantages du protocole USSD tout en mitigeant ses défauts. Thingstream est un service de communication qui exploite la technologie USSD pour permettre des dispositifs de communiquer entre eux presque partout dans le monde. Cette plateforme se distingue par le fait qu'elle propose le protocole MQTT sur le protocole USSD. De ce fait, comme pour la solution précédente, le logiciel de monitoring a accès à un protocole de la couche application ce qui facilite l'échange de données, mais son choix est imposé. La solution de Thinsgtream sera présentée plus en détail dans la section \ref{sec:thingstream}.
+
+~
+
+\textbf{Solution 3: SIM800L et protocole point à point}
+
+\vspace{-0.2cm}
+~
+
+\noindent
+Dans cette implémentation, le SIM800L est à nouveau exploité. En effet, l'architecture est très similaire à celle du prototype de l'année dernière, la différence réside dans l'emploi d'un protocole de plus haut niveau pour communiquer avec le modem. L'année précédente, les commandes AT étaient envoyées par le logiciel de monitoring au SIM800L à travers le protocole SERIAL. Pour simplifier ce processus, il est possible d'utiliser le protocole point à point (PPP). Ce protocole de la couche liaison de données gère toute la complexité des commandes AT et permet au Raspberry Pi de se connecter à Internet. Le logiciel de monitoring peut donc de recourir aux protocoles habituels de la couche application pour échanger les données avec le serveur distant. Veuillez noter que le protocole SERIAL est toujours utilisé dans la couche physique. La figure \ref{fig:so2} illustre le fonctionnement de cette solution.
+
+
+\begin{figure}[ht!]
+  \includegraphics[width=\textwidth]{img/el_prototype/solution3_com.png}
+  \caption{Architecture simplifiée de la solution de communication avec le SIM800L et le protocole PPP}
+  \label{fig:so2}
+\end{figure}
+
+\noindent
+Finalement, la solution 2 (USSD) est celle qui a été implémentée lors de ce mémoire. La solution 1 demandait un investissement assez élevé. De plus, il n'y a pas énormément d'informations sur la qualité des réseaux en République Démocratique du Congo \cite{congo_tower}. De ce fait, utiliser une solution basée sur le protocole USSD est le choix le plus sûr puisque, théoriquement, ce protocole fonctionne même lorsque la connectivité Internet du réseau est indisponible.
+
+~
+
+\noindent
+Veuillez noter que la troisième solution ne possède pas le même problème de coût que la première. Cependant, cette solution a seulement été identifiée quelques semaines plus tard que les deux autres et, à ce stade, la deuxième méthode avait déjà commencé à être implémentée. En outre, la troisième proposition reste théoriquement moins fiable qu'une solution basée sur USSD. De ce fait, il a été décidé de continuer l'implémentation de la deuxième méthode afin d'augmenter la probabilité d'avoir une solution complètement fonctionnelle à la fin de ce mémoire. Utiliser le temps disponible pour implémenter les deux solutions parallèlement pourrait conduire à des solutions sous-optimales ou non fonctionnelles.
+
+\subsubsection{Alimentation}
+
+Le système d'alimentation créé l'année dernière a aussi présenté des problèmes. En effet, le régulateur de charge ainsi que le step-down sont tombés en panne. Cependant, l'idée semblait prometteuse et, en particulier, l'autonomie du système était très bonne. Par conséquent, le plan pour ce mémoire fut de poursuivre avec la même idée, mais de changer deux choses. Premièrement, le step-down précédent a été remplacé par un nouveau modèle mieux documenté. Ce nouveau step-down est le XL4015.
+
+~
+
+\noindent
+Le XL4015 est un convertisseur Buck capable de supporter une tension d'entrée comprise entre 8V et 36V et des charges allant jusqu'à 5A. Le rendement de ce convertisseur est très élevé pouvant atteindre les $96\%$. Des applications typiques pour ce step-down sont des moniteurs LCD et des appareils télécom ou réseaux. Cette dernière application s'encadre dans ce projet puisqu'un modem est inclus dans le prototype.
+
+
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[scale=0.4]{img/el_prototype/rendement.png}
+  \caption{Courbe de rendement du XL4015 lorsque $V_{out} = 5V$ \cite{xl4015_datasheet}}
+  \label{fig:xlrend}
+\end{figure}
+~
+
+\noindent
+Ensuite, l'approche pour tester le système d'alimentation a été modifiée. Dans un premier temps, le prototype a été seulement alimenté à partir d'un chargeur de 12V. La batterie et le régulateur de charge n'étaient alors pas utilisés. Si le temps le permettait, le prototype serait testé avec la solution d'alimentation complète lors d'une deuxième phase. Ces tests déphasés ont comme but de mieux aider à identifier le composant provoquant les problèmes
+
+
+\subsubsection{Boîtier}
+
+Une fois les composants définis, il ne restait plus qu'à choisir le boîtier. L'importance de celui-ci ne doit pas être sous-estimée. En effet, le problème de température du prototype précédent était probablement lié à la mauvaise ventilation de la boîte. De plus, le boîtier utilisé précédemment n'était pas adapté pour loger les composants électroniques différents. Les modifications requises pour l'ajuster aux composants n'étaient pas simples à effectuer et l'accès aux divers ports I/O du Raspberry Pi était très limité. Cependant, avant de partir sur la conception de la nouvelle boîte, plusieurs tests ont été réalisés sur l'ancien boîtier afin d'examiner les problèmes de température et la nécessité d'ajouter un ventilateur. Les résultats de ces tests seront présentés dans la section \ref{sec:prototests} et le nouveau design sera abordé dans la section \ref{sec:protores}.
+
 \subsection{Thingstream}
-\subsection{Résultat}
+\label{sec:thingstream}
+
+Thingstream est une entreprise qui propose \textit{IoT-Communication-as-a-Service}. En d’autres termes, ils fournissent une plateforme qui facilite la communication entre des dispositifs différents. Leur service est disponible dans plus de 190 pays grâce à l’utilisation des réseaux mobiles GSM des opérateurs de télécommunication locaux. En particulier, le service est capable de basculer entre les réseaux des différents opérateurs disponibles à un endroit donné. Cette redondance accorde une grande fiabilité au service.
+
+~
+
+\noindent
+La grande particularité de Thingstream est que l’ensemble de la plateforme est basé sur le protocole MQTT pour la transmission des messages. Ce protocole a été spécifiquement conçu pour des "réseaux à faible bande passante, à haute latence et non fiables"\cite{mqtt_faq}. Un SDK\footnote{Software Development Kit ou kit de développement logiciel} est fourni afin de simplifier l’accès à la plateforme de Thinsgtream et d’exploiter le protocole MQTT. Actuellement, Thingstream ne possède pas de concurrents directs offrant les mêmes services. Des services similaires se concentrent souvent uniquement sur la proposition d’une connectivité Internet à travers les réseaux mobiles. Un exemple d’un tel service est EMnify. Cependant, aucun software est proposé pour aider à plus facilement exploiter la plateforme. Le niveau d’abstraction supplémentaire fourni par Thingstream est une plus-value très importante, particulièrement dans le cadre de ce mémoire où le temps est limité.
+
+~
+
+\noindent
+L’architecture de la plateforme de Thingstream est présentée sur la figure \ref{fig:thing_archi}. Les SN-Things correspondent aux appareils qui se connectent au réseau de Thingstream par le biais de réseaux mobiles. Comme indiqué sur la figure, ces dispositifs utilisent le protocole USSD pour transporter les messages de la couche application. La couche application est gérée par le protocole MQTT-SN. Ce protocole est une variante du protocole MQTT qui a été spécifiquement conçue pour les Sensor Networks. Le MQTT-SN permet notamment aux applications qui ne peuvent pas utiliser les réseaux TCP/IP de communiquer avec des applications MQTT. La spécification complète de MQTT-SN est disponible sur \cite{stanford2013mqtt}.
+
+
+~
+
+\noindent
+Ensuite, il y a les IP-Things. Ils correspondent aux différents clients qui se connectent au broker\footnote{Le broker est un serveur qui reçoit tous les messages publiés et les distribue vers les clients appropriés.} en utilisant le protocole MQTT et qui ont donc accès à un réseau TCP/IP. Grâce à une fonctionnalité nommée Data Flow, Thingstream permet aussi au broker de communiquer avec d’autres applications en utilisant d’autres protocoles que MQTT. Actuellement, les protocoles disponibles sont :
+
+\begin{itemize}
+  \item SMS
+  \item HTTP
+  \item FTP
+  \item SMTP (email)
+\end{itemize}
+
+~
+
+\begin{figure}[ht!]
+  \includegraphics[width=\textwidth]{img/el_prototype/thingstream_archi.png}
+  \caption{Architecture simplifiée de la plateforme Thingstream \cite{thing_archi}}
+  \label{fig:thing_archi}
+\end{figure}
+~
+
+\noindent
+Plus de détails sur cette fonctionnalité sont disponible sur \cite{thing_dataflow}. Cependant, il est très important de noter que Thingstream offre la possibilité d’envoyer des SMS. De ce fait, les deux types de communication requis pour ce projet sont supportés par Thingstream.
+
+~
+
+\noindent
+En résumé, Thingstream offre un service exploitant tous les avantages du protocole USSD, mais sans devoir passer directement par un opérateur. Cependant, l’utilisation de ce service n’est pas sans risque. Toute la partie de communication du projet sera dépendante de cette tierce partie. Par conséquent, si Thingstream, pour une raison quelconque, cesse d'offrir ce service, la partie communication du prototype sera complètement inopérante. De façon à limiter le possible impact de ce risque, des mesures ont été prises lors de la conception de l’architecture de l’application. Ceci sera présenté plus tard dans la section \ref{sec:archi}.
+
 \subsection{Tests réalisés}
+\label{sec:prototests}
+
+
+Une fois les principaux composants définis, le prototype a été testé pour s’assurer que tous les composants fonctionnaient correctement ensemble. En outre, il fallait vérifier si le SIM800L fonctionnait correctement avec le SDK de Thingstream, ou s’il causerait les mêmes problèmes que ceux rencontrés l’année précédente. De ce fait, un protocole de test a été mis en place.
+
+~
+
+\noindent
+Très brièvement, ce protocole consiste à lancer un stress test sur deux cœurs du CPU du Raspberry Pi et, en même temps, de publier un message toutes les 4 minutes sur un topic MQTT en utilisant le SIM800L et la plateforme Thingstream. Pendant le test, un serveur est aussi connecté à la plateforme de Thingstream (IP-Thing) et son but est de répondre à toute demande envoyée par le Raspberry Pi. Après l’envoi du message, le Raspberry Pi attend pendant maximum 2 minutes la réponse du serveur. Si aucune réponse n’est reçue, l’occurrence est enregistrée sur un fichier .txt. Le diagramme de séquence \ref{fig:dia_test} montre comment fonctionne l’envoi d’un message pendant une expérimentation. Le test a une durée de 4 heures et 45 minutes. Après cette période, des mesures de température supplémentaires sont prises pendant 15 minutes. Ce protocole a été automatisé à l'aide de scripts python afin de garantir sa reproductibilité. Dans l’annexe \ref{ap:teeeest} se trouvent plus de détails concernant le matériel nécessaire, le protocole et la démarche à suivre.
+
+\begin{figure}[ht!]
+  \includegraphics[width=\textwidth]{img/el_prototype/diagram_test.png}
+  \caption{Diagramme de séquence de la publication d'un message pendant un test}
+  \label{fig:dia_test}
+\end{figure}
+
+
+~
+
+\vspace{-0.5cm}
+
+\noindent
+Pendant le test, plusieurs métriques sont surveillées afin d’évaluer le fonctionnement du prototype. En premier lieu, il y a la température du CPU qui est mesurée toutes les 30 secondes. Ensuite, la température de deux zones distinctes est mesurée à l’aide de capteurs externes de température. Ces deux zones sont indiquées sur la figure \ref{fig:dia_test} et correspondent aux deux zones où la température est la plus élevée à l’intérieur du boîtier. Ces trois mesures de température servent principalement à analyser les capacités de refroidissement du boîtier, mais aussi pour vérifier si la température a un impact sur les performances du SIM800L.
+
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[scale=0.25]{img/el_prototype/zones_temperature.png}
+  \caption{Zones où la température a été mesurée lors des tests}
+  \label{fig:temp_zones}
+\end{figure}
+
+~
+
+\noindent
+Ensuite, il y a les métriques liées au fonctionnement du SIM800L.
+Les logs produits par le SDK de Thingstream permettent de ressortir deux informations assez importantes : le nombre de messages impossibles à décoder (Receive:parseMessage Warning) et le nombre d’erreurs lors de l’envoi d’un paquet (Protocol:SendPackets Error). La quantité de messages envoyés et reçus par le Raspberry Pi a aussi été enregistrée pour tous les tests, mais cette métrique ne sera pas discutée ici puisque cette valeur était la même pour tous les tests. Toutefois, nous pouvons déjà conclure que le SDK de Thingstream est résilient aux erreurs du modem une fois que le nombre d’erreurs ne semble pas influencer les messages envoyés.
+
+~
+
+
+\noindent
+Les tests présentés ci-dessous ont été réalisés avec le boîtier du prototype de l’année précédente. Le boîtier se trouvait dans une pièce à température contrôlée entre 19,5°C et 20,5°C. Lors de ces tests, le système d’alimentation avec batterie n’a pas utilisé. Au lieu de cela, un chargeur 12V 1.5A DC a été utilisé pour alimenter le XL4015. Chaque test a été répété trois fois et les résultats correspondent à la moyenne de ces trois essais.
+
+~
+
+
+\noindent
+Ce protocole de test a été suivi pour effectuer quatre tests avec des conditions de fonctionnement différentes. Le premier test a été réalisé sans aucun refroidissement actif et avec le step-down à l’intérieur de la boîte. Ce test correspond aux conditions normales de fonctionnement du prototype de l’année dernière.
+
+
+
+\begin{figure}[h!]
+  \centering
+  \input{img/el_prototype/step_no_ventilator.pgf}
+  \label{fig:test_1}
+  \vspace{-1cm}
+  \caption{\textbf{Test 1 :} Évolution de la température dans les tests avec step-down et sans ventilateur}
+\end{figure}
+
+~
+
+\noindent
+Ensuite, dans le test 2, le XL4015 a été retiré de la boîte et placé à une distance de 50 cm de celle-ci. Des fils d'une longueur de 60 cm étaient alors utilisés pour relier le XL4015 aux différents composants de la boîte. Ce test avait comme but de vérifier l’impact du XL4015, et en particulier du champ magnétique produit par celui-ci, sur les performances du SIM800L.
+%\vspace{-0.4cm}
+
+\begin{figure}[ht!]
+  \centering
+  \input{img/el_prototype/no_step_no_ventilator.pgf}
+  \label{fig:test_2}
+  \vspace{-1cm}
+  \caption{\textbf{Test 2 :} Évolution de la température dans les tests sans step-down et sans ventilateur}
+\end{figure}
+
+~
+
+\noindent
+Dans le troisième test, le step-down se trouvait à nouveau à l’intérieur du boîtier, mais un ventilateur était utilisé pour souffler de l’air vers l’intérieur de la boîte. Dans ce test, l’objectif était de comprendre à quel point un ventilateur améliore la solution de refroidissement du boîtier. De plus, l’idée était aussi de vérifier si la température a un impact sur les performances du modem.
+
+\begin{figure}[ht!]
+  \centering
+  \input{img/el_prototype/step_ventilator.pgf}
+  \label{fig:test_3}
+  \vspace{-1cm}
+  \caption{\textbf{Test 3 :} Évolution de la température dans les tests avec step-down et avec ventilateur}
+\end{figure}
+
+~
+
+\noindent
+Finalement, dans le quatrième test, le step-down a été entouré en 10 couches de feuille d’aluminium et placé à l’intérieur de la boîte. Les couches de feuille d’aluminium permettent de créer un blindage magnétique pour protéger le modem.
+
+
+\begin{figure}[h!]
+  \centering
+  \input{img/el_prototype/step_isolated.pgf}
+  \label{fig:test_4}
+  \vspace{-0.2cm}
+  \caption{\textbf{Test 4 :} Évolution de la température dans les tests avec step-down et blindage magnétique mais sans ventilateur}
+\end{figure}
+
+
+\begin{table}[ht]
+  \centering
+%\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}lllll@{}}
+\toprule
+                                      & \textbf{Test 1}                                                        & \textbf{Test 2}                                                         & \textbf{Test 3}                                                          & \textbf{Test 4}                                                     \\ \midrule
+\textbf{Protocol:SendPackets Error}    & \begin{tabular}[c]{@{}l@{}}min : 6\\ max : 9\\ moy : 7,33\end{tabular} & \begin{tabular}[c]{@{}l@{}}min : 2\\ max : 3 \\ moy : 2,33\end{tabular} & \begin{tabular}[c]{@{}l@{}}min : 8\\ max : 13\\ moy : 10,33\end{tabular} & \begin{tabular}[c]{@{}l@{}}min : 2\\ max : 6\\ moy : 4\end{tabular} \\ \midrule
+\textbf{Receive:parseMessage Warning} & \begin{tabular}[c]{@{}l@{}}min : 4\\ max : 5\\ moy : 4,33\end{tabular} & \begin{tabular}[c]{@{}l@{}}min : 0\\ max : 0\\ moy : 0\end{tabular}     & \begin{tabular}[c]{@{}l@{}}min : 4\\ max : 9\\ moy : 6,33\end{tabular}   & \begin{tabular}[c]{@{}l@{}}min : 0\\ max : 0\\ moy : 0\end{tabular} \\ \bottomrule
+\end{tabular}%
+%}
+\caption{Statistiques loggés par le SDK de Thingstream pour chaque test}
+\label{tab:res2}
+\end{table}
+
+~
+
+\noindent
+Le troisième test montre que le ventilateur a un grand impact sur la température à l’intérieur du boîtier. En effet, la température du CPU chute entre 14°C à 15°C après l’ajout du ventilateur. De plus, la température dans le boîtier devient plus homogène. Il est tout à fait prévisible que la température du XL4015 diminue aussi avec l’ajout du ventilateur, ce qui est bénéfique pour la durée de vie du composant. Cependant, le nombre élevé de warnings et d’erreurs pour le troisième test indique que la température n’a pas d’impact sur les performances du SIM800L. (tableau \ref{tab:res2})
+
+~
+
+\noindent
+Les résultats des tests 2 et 4 permettent de conclure que le champ magnétique produit par le step-down est la cause des défaillances au niveau du SIM800L. En effet, lors de ces deux tests, le Raspberry Pi et le modem n’ont plus eu de problème à échanger des messages. De plus, le nombre d’erreurs pendant de la transmission de paquets diminue aussi considérablement.
+
+~
+
+\noindent
+Les résultats des tests ci-dessous permettent de tirer les conclusions suivantes :
+
+\begin{itemize}
+  \item Le prochain boîtier devrait avoir un ventilateur intégré afin de mieux gérer la température des composants.
+  \item Dans la mesure du possible, le step-down doit être éloigné du SIM800L. Un blindage magnétique peut être utilisé en supplément lorsque la distance entre les deux composants n’est pas suffisante.
+\end{itemize}
+
+\noindent
+Les deux points présentés ci-dessous définissent la base du nouveau boîtier qui a été spécifiquement créé pour loger les différents composants de ce projet. Le boîter sera présenté dans la section suivante.
+
+
+\subsection{Résultat}
+\label{sec:protores}
+
+À la suite des choix présentés ci-dessus, les principaux composants du prototype sont :
+
+\begin{itemize}
+  \item Raspberry Pi 2B
+  \item SIM800L
+  \item XL4015
+  \item Circuit imprimé réalisé l’année précédente
+\end{itemize}
+
+\noindent
+ Comme expliqué précédemment, une boîte a été conçue pour abriter les composants. Pour ce faire, le boîtier a d’abord été modélisé en 3D sur Fusion 360. Ensuite, il a été produit en ayant recours à l’impression en 3D. Ce procédé de fabrication a permis de concevoir le boîtier en plus ou moins une demi-journée.
+
+ ~
+
+ \noindent
+Dans cette nouvelle boîte, le step-down a été éloigné le plus possible du SIM800L et une paroi entre les deux composants a aussi été ajoutée. Un matériau d’isolation magnétique peut être additionné sur la paroi afin de limiter l’impact du champ magnétique sur le modem. Un ventilateur de 10mm de diamètre a également été ajouté afin d’avoir une meilleure solution de refroidissement. Veuillez noter que le ventilateur est placé de façon à aspirer l’air vers l’intérieur. Le flux d’air quittant le ventilateur est turbulent et cela permet qu’il se propage dans un peu près toutes les zones à l’intérieur de la boîte \cite{cooling}. Le résultat de la modélisation 3D est visible sur les figures \ref{fig:box1}, \ref{fig:box2} et \ref{fig:box3}.
+
+
+
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[scale=0.4]{img/el_prototype/box1}
+  \caption{Vue des faces avant et supérieure avec le couvercle}
+  \label{fig:box1}
+\end{figure}
+
+
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[scale=0.4]{img/el_prototype/box2}
+  \caption{Vue de la face supérieure sans le couvercle}
+  \label{fig:box2}
+\end{figure}
+
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[scale=0.4]{img/el_prototype/box3}
+  \caption{Vue de la face arrière sans le couvercle}
+  \label{fig:box3}
+\end{figure}
+
+~
+
+\noindent
+Afin de valider le boîtier, le protocole de test présenté dans la section \ref{sec:prototests} a été à nouveau employé. Dans le premier test (test 5), aucun matériau de blindage magnétique n’a été utilisé. Toutefois, la distance accrue entre le step-down et le SIM800L suffit déjà pour que la communication entre le Raspberry et le modem ait lieu sans aucun problème. Ajouter des feuilles de papier d’aluminium sur la paroi permet de diminuer encore plus l’impact du champ magnétique puisque le nombre d’erreurs est divisé par deux. (voir test 6 sur \ref{tab:res22}). En particulier, cette dernière solution s’est montrée presque aussi efficace qu’éloigner le step-down 50 cm du boîtier.
+
+~
+
+\noindent
+La solution de refroidissement de ce boîtier est également très performante puisque la température dans les deux zones (Raspberry Pi et step-down) est tout à fait identique. Ceci montre donc que l’importance du boîtier ne peut pas être négligée. En effet, avoir un boîtier adapté aux besoins des composants est essentiel afin d’assurer le bon fonctionnement de ces derniers et de prolonger leur durée de vie.
+
+
+\begin{figure}[ht!]
+  \centering
+  \input{img/el_prototype/new_box.pgf}
+  \label{fig:test_5}
+  \vspace{-0.2cm}
+  \caption{\textbf{Test 5 :} Évolution de la température dans les tests réalisés dans le nouveau boîtier}
+\end{figure}
+
+
+\begin{figure}[ht!]
+  \centering
+  \input{img/el_prototype/new_box_isolated.pgf}
+  \label{fig:test_5}
+  \vspace{-1cm}
+  \caption{\textbf{Test 6 :} Évolution de la température dans les tests réalisés dans le nouveau boîtier avec blindage magnétique}
+\end{figure}
+
+
+\begin{table}[h!]
+  \centering
+%\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}lllll@{}}
+\toprule
+                                      & \textbf{Test 5}                                                        & \textbf{Test 6}         \\ \midrule
+\textbf{Protocol:SendPackets Error}    & \begin{tabular}[c]{@{}l@{}}min : 4\\ max : 5\\ moy : 4,33\end{tabular} & \begin{tabular}[c]{@{}l@{}}min : 2\\ max : 3 \\ moy : 2,67\end{tabular}  \\ \midrule
+\textbf{Receive:parseMessage Warning} & \begin{tabular}[c]{@{}l@{}}min : 0\\ max : 0\\ moy : 0\end{tabular} & \begin{tabular}[c]{@{}l@{}}min : 0\\ max : 0\\ moy : 0\end{tabular}     \\ \bottomrule
+\end{tabular}%
+%}
+
+\caption{C}
+\label{tab:res22}
+\end{table}
