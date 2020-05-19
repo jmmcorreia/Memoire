@@ -30,7 +30,7 @@
 \documentclass[a4paper, 12pt]{report}
 
 \usepackage[utf8]{inputenc}
-%\usepackage[french]{babel}
+\usepackage[french]{babel} %
 \usepackage{color}
 \usepackage[top=2.5cm, bottom=1.5cm, left=2.5cm, right=1cm]{geometry}
 
@@ -42,9 +42,10 @@
 % \usepackage{import}
 \usepackage{pgf}
 \usepackage{textcomp}
-
+\usepackage[T1]{fontenc}
 \usepackage{booktabs}
 \usepackage{listings}
+\usepackage{dirtytalk}
 %\usepackage[pdftex]{graphicx}
 
 
@@ -69,7 +70,7 @@
 % Sous-titre
 \newcommand{\subtitle}{\fontSubtitle{Ligne du sous-titre du mémoire}}
 % Titre du diplôme
-\newcommand{\diplomaA}{\fontText{Mémoire présenté en vue de l’obtention du diplôme}} % A laisser en Français
+\newcommand{\diplomaA}{\fontText{Mémoire présenté en vue de l'obtention du diplôme}} % A laisser en Français
 \newcommand{\diplomaB}{\fontText{d'Ingénieur Civil en informatique à finalité spécialisée}}
 
 % Etudiant
@@ -98,11 +99,12 @@
 \input{src/table.tex}
 
 
-\bibliographystyle{unsrt}
-\bibliography{src/bibliography}
+
 
 \input{src/annexes.tex}
-%
+
+\bibliographystyle{plain}
+\bibliography{src/bibliography}
 %\chapter{Test}
 
 \end{document}

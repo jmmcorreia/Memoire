@@ -13,7 +13,7 @@ Pour rappel, le prototype est constitué des composants suivants :
 En plus du matériel requis pour le prototype, les composants suivants sont également nécessaires afin de réaliser le test :
 
 \begin{itemize}
-  \item Un Raspberry Pi connecté à Internet (le modèle n’a pas d’importance)
+  \item Un Raspberry Pi connecté à Internet (le modèle n'a pas d'importance)
   \item Deux capteurs de température de type DS18B20
   \item Une résistance de $4,7 k\Omega$
 \end{itemize}
@@ -38,12 +38,12 @@ Le premier capteur de température doit être placé à environ 1 cm au-dessus d
 ~
 
 \noindent
-Ensuite, les scripts python doivent être copiés sur le serveur et le client si cela n’a pas encore été fait. Pour ce faire, vous pouvez utiliser le client SFTP de votre choix. Les fichiers \textit{automated\_test.py}, \textit{client\_test.py}, \textit{cpu\_temp.py} et \textit{MA2\_Communication\_server.jar} doivent être copiés sur le client. Le fichier \textit{server\_test.py} doit être copié sur le serveur. Sur ce dernier fichier, veuillez configurer les variables \textit{CLIENT\_ID}, \textit{USERNAME} et \textit{PASSWORD} avec des paramètres permettant de se connecter à la plateforme de Thingstream. (Ces valeurs se trouvent sur votre portail de Thingstream)
+Ensuite, les scripts python doivent être copiés sur le serveur et le client si cela n'a pas encore été fait. Pour ce faire, vous pouvez utiliser le client SFTP de votre choix. Les fichiers \textit{automated\_test.py}, \textit{client\_test.py}, \textit{cpu\_temp.py} et \textit{MA2\_Communication\_server.jar} doivent être copiés sur le client. Le fichier \textit{server\_test.py} doit être copié sur le serveur. Sur ce dernier fichier, veuillez configurer les variables \textit{CLIENT\_ID}, \textit{USERNAME} et \textit{PASSWORD} avec des paramètres permettant de se connecter à la plateforme de Thingstream. (Ces valeurs se trouvent sur votre portail de Thingstream)
 
 ~
 
 \noindent
-Pour lancer le test du côté du client, seulement le programme dans \textit{automated\_test.py} doit être exécuté. Ce programme se chargera de lancer tous les autres programmes requis pour le test. Cependant, pour lancer le programme, les paramètres suivants doivent être passés en argument lors de l’exécution :
+Pour lancer le test du côté du client, seulement le programme dans \textit{automated\_test.py} doit être exécuté. Ce programme se chargera de lancer tous les autres programmes requis pour le test. Cependant, pour lancer le programme, les paramètres suivants doivent être passés en argument lors de l'exécution :
 
 \begin{itemize}
   \item -r $[int]$ : durée totale du test en seconds
@@ -66,14 +66,14 @@ De façon similaire, plusieurs paramètres sont requis pour exécuter le \textit
 ~
 
 \noindent
-Le protocole de test peut être divisé en deux parties. La première partie a comme durée la valeur passée avec le paramètre r moins 900 seconds. Les 15 dernières minutes (900 seconds) correspondent à la deuxième partie du test. Cette première partie est composée par la succession d’étapes suivantes.
+Le protocole de test peut être divisé en deux parties. La première partie a comme durée la valeur passée avec le paramètre r moins 900 seconds. Les 15 dernières minutes (900 seconds) correspondent à la deuxième partie du test. Cette première partie est composée par la succession d'étapes suivantes.
 
 \begin{enumerate}
   \item Deux cœurs du CPU du client sont soumis à un stress test. Ce stress test se prolonge pendant toute la première partie du protocole de test.
   \item En parallèle, le prototype publie un message sur le topic \textit{device/\{identity\}/post} toutes les -m secondes. Après avoir publié son message, le client attend pendant 2 minutes maximum une réponse du serveur.
   \item Le serveur reçoit le message publié par le client et vérifie si ce message est valide. Le résultat de cette vérification est enregistré sur le fichier avec le nom du paramètre -f. Ensuite, le serveur publie une réponse sur le topic \textit{device/\{identity\}/startup}.
 
-  \item Si le client reçoit la réponse du serveur endéans les 2 minutes à la suite de l’envoi du message, alors la réponse du serveur est écrite sur le fichier de nom -f. Dans le cas contraire, un message d’erreur est écrit au lieu du message.
+  \item Si le client reçoit la réponse du serveur endéans les 2 minutes à la suite de l'envoi du message, alors la réponse du serveur est écrite sur le fichier de nom -f. Dans le cas contraire, un message d'erreur est écrit au lieu du message.
 
   \item Pendant que les étapes précédentes ont lieu, le client enregistre la température du CPU toutes les -t secondes sur un deuxième fichier de nom "temps\_ + -f".
 
@@ -84,7 +84,7 @@ Le protocole de test peut être divisé en deux parties. La première partie a c
 
 \noindent
 Lors des 15 dernières minutes, seulement des mesures de température sont effectuées. Il est ainsi plus facile de comparer la façon dont le boîtier ou les différentes solutions de refroidissement sont capables de libérer la chaleur des différents composants.
-Lors de ce mémoire, tous les tests effectués en suivant ce protocole ont été réalisés à l’aide des commandes suivantes :
+Lors de ce mémoire, tous les tests effectués en suivant ce protocole ont été réalisés à l'aide des commandes suivantes :
 
 ~
 

@@ -1,0 +1,94 @@
+\chapter{Introduction}
+\section{Contexte du mémoire}
+
+\noindent
+De nos jours, les solutions de stockage d'informations au format papier sont remplacées au fur et à mesure par des solutions électroniques. Ces dernières permettent de stocker une énorme quantité de documents sur des supports physiques de petite taille, mais cela est loin d'être leur seul avantage. En effet, les documents électroniques ouvrent la porte à tant d'autres possibilités. Ils facilitent la collaboration, l'échange et la sauvegarde de données et proposent énormément de différents formats pour présenter une très grande variété d'informations. De plus, lorsque les informations informatisées se retrouvent sur une base de données, les langages de requête aident à très rapidement récupérer les données cherchées.
+
+~
+
+\noindent
+D'après l'Organisation mondiale de la santé (OMS), les systèmes d'information hospitaliers sont un des six piliers d'une structure de santé \cite{world2010monitoring}. Avoir accès à des informations fiables et solides est indispensable pour conduire toutes les activités liées aux autres composantes du système de santé \cite{Mutale2013}. Avec ce but est né CERHIS, \say{un système d'information adapté aux structures de santé situées dans des environnements à faibles ressources}. Cette solution est composée de tablettes Android et d'un serveur local qui centralise le stockage de toutes les données. Grâce à un réseau Wi-Fi local, les tablettes peuvent communiquer avec le serveur afin d'échanger les données médicales. En plus de cela, CERHIS possède un appareil d'alimentation mixte\footnote{réseau électrique combiné avec des batteries alimentées par des panneaux solaires} dans le but de faire face à d'éventuelles coupures d'électricité.
+
+
+~
+
+
+\noindent
+Toutefois, comme tout système informatique et électronique, les différents composants peuvent tomber en panne, ce qui peut affecter les performances du système sur le long terme. De ce fait, un dispositif de monitoring de l'infrastructure est requis afin de détecter des problèmes et d'avertir les parties concernées le plus rapidement possible. Lors des années académiques antérieures, plusieurs projets ont eu lieu dans l'école polytechnique de Bruxelles dans la finalité de créer ce dispositif de monitoring, dont un projet développé par moi-même l'année dernière.
+
+~
+
+\noindent
+Le but de ce mémoire est donc de réunir toutes les connaissances acquises tout au long des programmes précédents pour construire un nouveau prototype capable de surveiller l'installation de CERHIS.  En particulier, le prototype de l'année dernière a présenté plusieurs problèmes qui doivent être résolus en vue d'avoir un prototype plus proche du potentiel produit final.
+
+~
+
+\noindent
+Il faut cependant noter que cette thèse s'encadre dans un projet de coopération et d'aide au développement. Le but n'est pas de proposer une boîte noire avec un guide d'instructions sur son utilisation. Au contraire, ce mémoire vise à partager les connaissances requises pour construire un tel produit, ou à pointer le lecteur dans la bonne direction. Les choix effectués seront décrits en détail, ainsi que le fonctionnement du prototype.
+
+~
+
+\noindent
+Un dernier aspect très important à considérer est que ce mémoire ne se concentre pas sur un seul domaine de l'informatique. En effet, comme il sera présenté plus tard, le prototype encadre une partie de communication utilisant les réseaux sans fil, mais aussi une partie concernant les procédés de monitoring qui est souvent associé au domaine de DevOps. Finalement, il y a également une petite part liée au développement d'un boîtier qui logera tous les composants électroniques.
+
+
+\section{Parties prenantes}
+
+\noindent
+Ce mémoire étant axé sur la coopération et l'aide au développement, plusieurs parties prenantes sont étroitement associées à sa mise en œuvre. Elles sont présentées ci-dessous :
+
+~
+
+\begin{itemize}
+  \item \textbf{AEDES:} AEDES, ou Agence Européenne pour le Développement et la Santé, \say{est une société de consultance spécialisée en santé publique}\cite{aedes} fondée en 1985. Acteur majeur en santé publique, la mission d'AEDES est \say{l'amélioration de la qualité et de l'accès aux soins de santé partout dans le monde.}\cite{aedes} Cela est accompli grâce à la mise à disposition de moyens humains et le partage de connaissances. Les contacts avec AEDES ont été réalisés à travers de Loïc Vaes.
+
+  ~
+
+  \item \textbf{ULB-Coopération:} \say{ULB-Coopération est l'ONG de l'Université libre de Bruxelles.} \cite{ulb_coop} Elle est active dans plusieurs thématiques, dont la santé et les systèmes de santé. \say{ULB-Coopération s'engage à contribuer à la construction d'une société dans laquelle il fait bon vivre, une société juste, émancipatrice, solidaire, responsable où toutes les citoyennes et tous les citoyens, sans discrimination de genre, sont traité·e·s avec égalité.}\cite{ulb_coop} Erica Berghman était le point de contact avec ULB-Coopération.
+
+  ~
+
+  \item \textbf{Codepo:} Fondée en 2007, Codepo est la cellule de coopération au développement de l'École polytechnique de Bruxelles. Elle propose aux étudiants de Master de participer dans un projet de coopération au développement. Ses principaux objectifs sont la pédagogie, la recherche scientifique et technique et l'éducation au développement. \cite{codepo} Le Professeur Antoine Nonclercq a représenté la cellule Codepo.
+
+\end{itemize}
+
+\section{Projet précédent}
+
+\noindent
+Lors des années académiques 2016-2017 et 2017-2018, une solution de monitoring a été créée par des étudiants à l'École polytechnique de Bruxelles. Cette solution utilisait un smartphone Android comme composant principal pour tourner de logiciel de monitoring. Cependant, comme expliqué dans \cite{delobbe_2017}, le système d'exploitation Android peut mettre certaines applications en pause pour économiser la batterie du smartphone. Ceci a posé un énorme problème puisque le logiciel de monitoring doit être capable de surveiller l'état des différents éléments de façon continue.
+
+~
+
+\noindent
+Un prototype conçu lors de l'année académique 2018-2019 a essayé de pallier ce problème en remplaçant le smartphone par un Raspberry Pi. Plus de détails sur ce projet seront fournis dans la section \ref{sec:old_boy}. Ce mémoire s'appuie sur les connaissances acquises tout au long des projets précédents afin de proposer un nouveau prototype.
+
+
+\section{Structure du mémoire}
+
+\noindent
+Ce mémoire commence par une présentation de l’état de l’art des trois technologies principales de ce mémoire, c’est-à-dire les technologies de communication à distance, les solutions pour le monitoring d’un serveur Linux et les plateformes de visualisation de données. De plus, dans chaque section, il est aussi expliqué la façon dont chacune de ces solutions s'intègre dans cette thèse.
+
+~
+
+\noindent
+Ensuite, le cahier des charges établi en début d’année avec AEDES est détaillé. Ce cahier des charges présente non seulement les fonctionnalités du logiciel de monitoring, mais couvre encore certaines propriétés requises afin que le prototype soit adapté à son environnement de fonctionnement. Cette section détaille également l’ordre dans lequel chaque tâche a été réalisée ainsi que la méthodologie adoptée pour accomplir ces dernières.
+
+~
+
+\noindent
+L’intégralité du prototype construit lors de mémoire est couverte dans le chapitre 4. Tous les composants et solutions considérés sont exposés ainsi que les raisons derrière chaque choix.  De plus, le prototype réalisé l’année précédente est également présenté dans cette section puisqu’il a une grande influence sur le prototype conçu cette année. Finalement, le résultat des premiers tests réalisés ainsi que les conclusions à tirer sont détaillés.
+
+~
+
+\noindent
+Le chapitre 5 présente le logiciel de monitoring implémenté. En particulier, ce chapitre décrit comment les différentes parties du logiciel de monitoring interagissent afin de surveiller l’infrastructure de CERHIS. L’application créée dans ce mémoire est composée des solutions Open Source qui y sont également détaillées. Une section de ce chapitre est aussi réservée à la présentation du serveur distant responsable du stockage de toutes les données envoyées par le logiciel de monitoring.
+
+~
+
+\noindent
+Valider le bon fonctionnement de toutes les parties constituant le prototype est un élément essentiel de cette thèse. En effet, il faut comprendre si le résultat de ce mémoire respecte les attentes du cahier des charges ou si un des choix a guidé le prototype dans la mauvaise direction. Le chapitre 6 présente donc en détail les tests réalisés sur l’entière de la solution de monitoring produite lors de ce mémoire. De plus, les conclusions à tirer de ces tests sont également explicitées.
+
+~
+
+\noindent
+Finalement, le dernier chapitre parcourt brièvement les accomplissements de ce mémoire et les prochaines étapes en vue de transformer le résultat en un produit prêt à être déployé dans un environnement de production.
