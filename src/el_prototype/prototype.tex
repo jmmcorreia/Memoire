@@ -168,7 +168,7 @@ Trancher entre l'USSD et le GPRS n'est pas simple. D'une part, l'USSD semble off
 
 
 ~
-
+\\
 
 \textbf{Solution 1: Routeur LTE (GPRS/HSPA/LTE)}
 
@@ -187,7 +187,6 @@ Dans cette première implémentation, l'idée était de remplacer le module SIM8
 
 ~
 
-\newpage
 
 \textbf{Solution 2: Service USSD avec SIM800L}
 
@@ -259,7 +258,7 @@ Thingstream est une entreprise qui propose \textit{IoT-Communication-as-a-Servic
 ~
 
 \noindent
-La grande particularité de Thingstream est que l'ensemble de la plateforme est basé sur le protocole MQTT pour la transmission des messages. Ce protocole a été spécifiquement conçu pour des "réseaux à faible bande passante, à haute latence et non fiables"\cite{mqtt_faq}. Un SDK\footnote{Software Development Kit ou kit de développement logiciel} est fourni afin de simplifier l'accès à la plateforme de Thinsgtream et d'exploiter le protocole MQTT. Actuellement, Thingstream ne possède pas de concurrents directs offrant les mêmes services. Des services similaires se concentrent souvent uniquement sur la proposition d'une connectivité Internet à travers les réseaux mobiles. Un exemple d'un tel service est EMnify. Cependant, aucun software est proposé pour aider à plus facilement exploiter la plateforme. Le niveau d'abstraction supplémentaire fourni par Thingstream est une plus-value très importante, particulièrement dans le cadre de ce mémoire où le temps est limité.
+La grande particularité de Thingstream est que l'ensemble de la plateforme est basé sur le protocole MQTT\footnote{Message Queuing Telemetry Transport} pour la transmission des messages. Ce protocole a été spécifiquement conçu pour des "réseaux à faible bande passante, à haute latence et non fiables"\cite{mqtt_faq}. Un SDK\footnote{Software Development Kit ou kit de développement logiciel} est fourni afin de simplifier l'accès à la plateforme de Thinsgtream et d'exploiter le protocole MQTT. Actuellement, Thingstream ne possède pas de concurrents directs offrant les mêmes services. Des services similaires se concentrent souvent uniquement sur la proposition d'une connectivité Internet à travers les réseaux mobiles. Un exemple d'un tel service est EMnify. Cependant, aucun software est proposé pour aider à plus facilement exploiter la plateforme. Le niveau d'abstraction supplémentaire fourni par Thingstream est une plus-value très importante, particulièrement dans le cadre de ce mémoire où le temps est limité.
 
 ~
 
@@ -435,6 +434,8 @@ Les résultats des tests ci-dessous permettent de tirer les conclusions suivante
   \item Le prochain boîtier devrait avoir un ventilateur intégré afin de mieux gérer la température des composants.
   \item Dans la mesure du possible, le step-down doit être éloigné du SIM800L. Un blindage magnétique peut être utilisé en supplément lorsque la distance entre les deux composants n'est pas suffisante.
 \end{itemize}
+
+~
 
 \noindent
 Les deux points présentés ci-dessous définissent la base du nouveau boîtier qui a été spécifiquement créé pour loger les différents composants de ce projet. Le boîter sera présenté dans la section suivante.
