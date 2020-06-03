@@ -8,8 +8,9 @@ Lors des dernières années, le nombre de dispositifs Internet des Objets (IoT) 
 
 ~
 
-\begin{figure}[ht!]
-  \includegraphics[width=\textwidth]{img/state_of_the_art/iot_number_connected.png}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.97\textwidth]{img/state_of_the_art/iot_number_connected.png}
   \caption{Nombre de dispositifs connectés à Internet \cite{lueth_2018}}
   \label{fig:iot_number}
 \end{figure}
@@ -17,7 +18,7 @@ Lors des dernières années, le nombre de dispositifs Internet des Objets (IoT) 
 ~
 
 \noindent
-Un réseau de communication unique et employable indépendamment du contexte du projet n'existe pas \cite{vannieuwenborg_iot}. Toutefois, une multitude de réseaux avec des caractéristiques distinctes sont disponibles, tels que LoRaWAN et GSM. La figure 1 présente l'architecture simplifiée des réseaux utilisés par les dispositifs IoT pour échanger des informations avec des serveurs ou des utilisateurs qui sont connectés à Internet. Nous ne nous intéressons ici qu'aux technologies responsables de la transmission de données dans la phase 1 de la figure.
+Un réseau de communication unique et employable indépendamment du contexte du projet n'existe pas \cite{vannieuwenborg_iot}. Toutefois, une multitude de réseaux avec des caractéristiques distinctes sont disponibles, tels que LoRaWAN et GSM. La figure \ref{fig:network_archi} présente l'architecture simplifiée des réseaux utilisés par les dispositifs IoT pour échanger des informations avec des serveurs ou des utilisateurs qui sont connectés à Internet. Nous ne nous intéressons ici qu'aux technologies responsables de la transmission de données dans la phase 1 de la figure.
 
 ~
 
@@ -48,7 +49,7 @@ Actuellement, les principaux réseaux sans fil disponibles pour les dispositifs 
 ~
 
 \noindent
-Ces technologies utilisent toutes des ondes électromagnétiques pour transmettre les données, mais les fréquences sur lesquelles elles opèrent sont parfois très différentes. Certaines technologies utilisent une implémentation propriétaire, d'autres se basent sur des standards open source. \cite{foubert_iot} De façon similaire, certaines technologies exploitent la bande ISM\footnote{Bande industrielle, scientifique et médicale}, alors que d'autres exploitent des fréquences non réglementées. Ces dernières permettent de déployer son propre réseau privé, à condition d'acheter et configurer tout le matériel requis ce qui peut demander un investissement initial assez important. Ces différences accordent des propriétés distinctes aux réseaux en ce qui concerne le coût d'utilisation et déploiement, la bande passante, et la portée du signal. À noter également, certains réseaux imposent une taille maximale sur chaque message, qu'il soit envoyé ou reçu. Le tableau comparatif de l'annexe \ref{ap:table_network} offre une vue d'ensemble sur les différentes technologies et leurs propriétés. Il faut cependant remarquer que la portée et le débit sont juste donnés à titre comparatif et ils sont à prendre avec des pincettes. En effet, ces valeurs varient beaucoup en fonction de certains paramètres tels que la géographie du milieu (urbain ou rural) et des éventuelles interférences. Néanmoins, le débit et la portée sont très importants pour classifier ces réseaux et, avec l'aide de la figure \ref{fig:range_iot}, ces technologies peuvent être classées de la façon suivante \cite{orange_iot} :
+Ces technologies utilisent toutes des ondes électromagnétiques pour transmettre les données, mais les fréquences sur lesquelles elles opèrent sont parfois très différentes. Certaines technologies utilisent une implémentation propriétaire, d'autres se basent sur des standards open source. \cite{foubert_iot} De façon similaire, certaines technologies exploitent la bande ISM\footnote{Bande industrielle, scientifique et médicale}, alors que d'autres exploitent des fréquences non réglementées. Ces dernières permettent de déployer son propre réseau privé, à condition d'acheter et configurer tout le matériel requis ce qui peut demander un investissement initial assez important. Ces différences accordent des propriétés distinctes aux réseaux en ce qui concerne le coût d'utilisation et déploiement, la bande passante, et la portée du signal. À noter également, certains réseaux imposent une taille maximale sur chaque message, qu'il soit envoyé ou reçu. Le tableau comparatif de l'annexe \ref{ap:table_network} offre une vue d'ensemble sur les différentes technologies et leurs propriétés. Il faut cependant remarquer que la portée et le débit sont juste donnés à titre comparatif et ils sont à prendre avec des pincettes. En effet, ces valeurs varient en fonction de certains paramètres tels que la géographie du milieu (urbain ou rural) et des éventuelles interférences. Néanmoins, le débit et la portée sont importants pour classifier ces réseaux et, avec l'aide de la figure \ref{fig:range_iot}, ces technologies peuvent être classées de la façon suivante \cite{orange_iot} :
 
 
 \begin{figure}
@@ -139,7 +140,7 @@ Dans le modèle de type \textit{push}, les agents dans la machine hôte envoient
 ~
 
 \noindent
-Dans le modèle de type \textit{pull}, les agents dans la machine hôte collectent et exposent les métriques, mais c'est au serveur de monitoring d'activement aller retrouver ces données. Par conséquent, les événements et alertes au niveau des agents ne sont pas pris en charge, dans la mesure où ces derniers ne savent pas quand le système de monitoring récupérera les informations. En revanche, cette méthode permet de mieux identifier si un problème s'est produit sur la machine hôte puisqu'elle ne répondra plus aux requêtes lorsque cela a lieu.\cite{prometheus_doc_pull_push} Ceci rend l'approche \textit{pull} légèrement plus fiable que la technique \textit{push}. Les deux méthodes possèdent donc leurs avantages et inconvénients qu'il faut tenir en compte lors du choix de la technologie. Cependant, dans la majorité des cas, les deux architectures offrent ces capacités très similaires \cite{interview_push_pull}.
+Dans le modèle de type \textit{pull}, les agents dans la machine hôte collectent et exposent les métriques, mais c'est au serveur de monitoring d'activement aller retrouver ces données. Par conséquent, les événements et alertes au niveau des agents ne sont pas pris en charge, dans la mesure où ces derniers ne savent pas quand le système de monitoring récupérera les informations. En revanche, cette méthode permet de mieux identifier si un problème s'est produit sur la machine hôte puisqu'elle ne répondra plus aux requêtes lorsque cela a lieu.\cite{prometheus_doc_pull_push} Ceci rend l'approche \textit{pull} légèrement plus fiable que la technique \textit{push}. Les deux méthodes possèdent donc leurs avantages et inconvénients qu'il faut tenir en compte lors du choix de la technologie. Cependant, dans la majorité des cas, les deux architectures offrent ces capacités similaires \cite{interview_push_pull}.
 
 ~
 
@@ -163,10 +164,11 @@ De ce fait, les bases de données orientées séries temporelles offrent un stoc
 ~
 
 \noindent
-Le but principal de ce mémoire est de construire un système de monitoring pour CERHIS. Il est donc très important de comprendre ce qui se fait actuellement dans l'industrie et quels types de solutions sont disponibles à l'heure actuelle. Le logiciel de monitoring implémenté lors de ce mémoire sera décrit en détail dans la section \ref{sec:c_arch}.
+Le but principal de ce mémoire est de construire un système de monitoring pour CERHIS. Il est donc important de comprendre ce qui se fait actuellement dans l'industrie et quels types de solutions sont disponibles à l'heure actuelle. Le logiciel de monitoring implémenté lors de ce mémoire sera décrit en détail dans la section \ref{sec:c_arch}.
 
 
 \section{Plateformes de visualisation de données}
+\label{sec:data_vis}
 
 \noindent
 La visualisation de données consiste à représenter plusieurs formats de données sous un format visuel tel que les graphiques. Le système visuel humain est capable d'identifier des tendances ou des aberrations. Le but de la visualisation des données consiste alors dans l'aide de la compréhension des données en exploitant cette capacité. \cite{zoo_data}

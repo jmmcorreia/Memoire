@@ -40,7 +40,7 @@ Avant de démarrer l'implémentation de tout logiciel, il faut d'abord commencer
 ~
 
 \noindent
-Ensuite, comme expliquée plus tôt, l'utilisation de Thingstream n'est pas sans risque. En effet, l'arrêt de la commercialisation de Thingstream aurait un très grand impact sur la fonctionnalité du produit, mais cela n'est pas le seul risque. En effet, le tableau \ref{tab:thing_risk} reprend la majorité des risques liés à l'utilisation de Thingstream et la probabilité qu'ils aient lieu. Pour la plupart des risques, il est peu probable qu'ils provoquent un incident à l'avenir, ou que l'impact soit aussi conséquent qu'un arrêt total du service. Toutefois, atténuer l'impact de ces risques est très important et cela peut être réalisé grâce à l'architecture du logiciel.
+Ensuite, comme expliquée plus tôt, l'utilisation de Thingstream n'est pas sans risque. Le tableau \ref{tab:thing_risk} reprend la majorité des risques liés à l'utilisation de Thingstream et la probabilité qu'ils aient lieu. Pour la plupart des risques, il est peu probable qu'ils provoquent un incident à l'avenir, ou que l'impact soit aussi conséquent qu'un arrêt total du service. Toutefois, atténuer l'impact de ces risques est très important et cela peut être réalisé grâce à l'architecture du logiciel.
 
 ~
 
@@ -624,12 +624,193 @@ La sécurité ne figurait pas parmi les objectifs du cahier des charges, d'où l
 ~
 
 \noindent
-Cette dernière hypothèse se traduit donc par une confiance totale dans le système d’authentification de la carte SIM de Thingstream et du réseau GSM. Cependant, dans une version finale du client, faire cette hypothèse ne serait peut-être pas judicieux. Il est fortement recommandé qu’une technique d’échange de clés soit implémentée entre le serveur et le client de communication afin que les transmissions entre les deux instances puissent être cryptées. Ceci empêcherait donc d’être complètement du système de sécurité de Thingstream qui nous est inconnu. En outre, le chiffrement des données permettrait d’être protégé contre des attaques sur le réseau GSM. Ces attaques ne sont pas faciles à conduire, mais peuvent potentiellement exposer les informations transmises dans le réseau.
+Cette dernière hypothèse se traduit donc par une confiance totale dans le système d’authentification de la carte SIM de Thingstream et du réseau GSM. Cependant, dans une version finale du client, faire cette hypothèse ne serait peut-être pas judicieux. Il est fortement recommandé qu’une technique d’échange de clés soit implémentée entre le serveur et le client de communication afin que les transmissions entre les deux instances puissent être cryptées. Ceci empêcherait donc d’être complètement du système de sécurité de Thingstream qui nous est inconnu. En outre, le chiffrement des données permettrait d’être protégé contre des attaques sur le réseau GSM. Ces attaques ne sont pas faciles à conduire, mais peuvent potentiellement exposer les informations transmises dans le réseau. \cite{gsm_fails}
 
 \section{Serveur}
 \label{sec:server}
 
-\subsection{Architecture}
+\noindent
+Le serveur distant est une partie intégrale de la solution finale. Il permet aux techniciens de consulter l’état actuel de l’infrastructure même s’ils ne se trouvent pas dans le centre hospitalier. Les SMS ne sont utilisés que pour les prévenir en cas de défaillance d’un des composants de CERHIS. Cependant, certaines de ces défaillances peuvent être de courte durée, voire même un faux positif. En outre, les SMS n’offrent pas une vue d’ensemble sur la liste des composants et l’historique des alertes. Le serveur cherche donc à surmonter ces problèmes en sauvegardant toutes les informations sur une longue période et en proposant un accès facile aux données à travers une interface graphique. Les informations sur le serveur seront également mises à jour en cas de changement, mais cela ne se fera pas par SMS.
+
+~
+
+\noindent
+L'application s'exécutant sur le serveur est beaucoup plus simple que celle du client. En effet, le serveur ne fait que : recevoir des informations déjà traitées par ce dernier, les stocker sur la base de données et les rendre accessibles aux techniciens. De ce fait, l’architecture du logiciel est composée par les trois parties suivantes :
+
+
+\begin{itemize}
+  \item Le client MQTT, ou Thingstream IP-Thing, qui reçoit tous les messages publiés sur les topics \textbf{device/\#identity\#/startup} et \textbf{device/\#identity\#/post}.
+
+  ~
+
+  \item Une base de données capable de stocker toutes les informations envoyées par plusieurs clients.
+
+  ~
+
+  \item Une application ou un service permettant de facilement visualiser les données se trouvant sur la base de données.
+\end{itemize}
+
+~
+
+\noindent
+La figure \ref{fig:base_server} illustre cette architecture. L’implémentation de chaque composant sera exposée au cours des trois sections suivantes.
+
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=\textwidth]{img/app/base_server.png}
+  \caption{Architecture simplifiée de l'application tournant sur le serveur distant}
+  \label{fig:base_server}
+\end{figure}
+
+
 \subsection{Base de données}
+
+\noindent
+De nos jours, plusieurs types de bases de données existent sur le marché, mais elles sont très souvent classées selon deux modèles : le modèle relationnel et les bases de données NoSQL (non relationnelles). Ces dernières abandonnent les propriétés ACID\footnote{atomicité, cohérence, isolation et durabilité} en faveur d’une plus haute disponibilité, de bonnes performances même lorsqu’une grande quantité de données doit être traitée, et l’extensibilité\footnote{\textit{scalability} en anglais}.
+
+~
+
+\noindent
+Cependant, en raison des limitations de la solution de communication, seulement des mises à jour concernant l’état des alertes et la liste des dispositifs seront envoyées au serveur. Les métriques collectées par Prometheus ne seront stockées que sur le Raspberry Pi. Cet aspect a une grande influence sur le choix de la base de données. En effet, ceci diminue très fortement la quantité de données que le serveur devra enregistrer. En outre, toutes les informations envoyées par le client sont également stockées sur celui-ci sur des bases de données SQLite. Cela veut donc dire que les données transmises sont déjà formatées selon le modèle relationnel. Il apparaît tout à fait évident que la base de données du serveur suive le même modèle, puisque cela réduit le nombre de technologies à maitriser pour travailler sur ce projet.
+
+~
+
+\noindent
+Le schéma de la base de données du serveur peut donc être très similaire à ceux présentés sur les figures \ref{fig:db_device} et \ref{fig:alert_db}. La grande différence c’est que les diverses tables peuvent être combinées sous un même schéma. Une base de données SQLite pourrait également être utilisée du côté du serveur, mais cela présenterait énormément de problèmes plus tard lorsque celui-ci recevrait des informations de multiples clients. SQLite a une très faible extensibilité et est optimisé pour les petites bases de données. Cependant, la base de données du serveur doit pouvoir stocker les informations de plusieurs clients. Le choix de SQLite n’est donc pas le plus judicieux pour ce projet.
+
+~
+
+\noindent
+Il existe sur le marché des alternatives qui sont également open source et plus puissantes que SQLite. Contrairement à cette dernière, ces bases de données ne sont pas autonomes, elles ont besoin d’un \underline{serveur}\footnote{Ce serveur peut correspondre à la même machine du serveur distant ou à une seconde machine complètement différente. Jusqu'à présent, le mot serveur a été utilisé pour désigner l'ensemble constitué par le client MQTT, la base de données et la visualisation de données. En revanche, lors de la communication entre ces composants, certains jouent le rôle de client et d’autres celui du serveur. Par exemple, la solution de visualisation de données est un client qui se connecte au serveur de la base de données. Désormais, si les mots serveur et client sont soulignés, alors ils correspondent à ce dernier cas et non pas aux solutions créées dans ce mémoire.} pour fonctionner. Elles suivent donc le modèle \underline{client-serveur} pour échanger des données. Les 3 principales alternatives sont :
+
+\begin{itemize}
+  \item MySQL
+  \item PostgreSQL
+  \item MariaDB
+\end{itemize}
+
+~
+
+\noindent
+N’importe laquelle des trois possibilités aurait pu être déployée. Ce projet ne possède pas beaucoup de contraintes sur cet aspect et la structure des données à stocker n’est pas complexe. MySQL a été choisi parque que c’est une des plus répandues et, traditionnellement, celle qui est employée quand quelqu’un désire apprendre à manipuler des bases de données. En outre, puisque son utilisation est très habituelle, une grande majorité des outils de visualisation sont compatibles avec ce choix. Ce dernier aspect sera important plus tard lors de la définition de l’outil de visualisation de données.
+
+~
+
+\noindent
+Afin de communiquer avec la base de données, la bibliothèque logicielle SQLAlchemy a été manipulée. Elle permet de faire abstraction de toute la partie liée aux requêtes SQL. Cela a contribué à réduire le temps de développement et à diminuer la complexité du code. Le schéma de la base de données du serveur distant est illustré dans \ref{fig:server_db_schema}. Veuillez noter l’ajout du \textit{thingstream\_id} dans chaque table, ce qui permet de différencier les données en fonction du centre hospitalier. En outre, la table \textit{thingstream\_device} a également été additionnée pour enregistrer les valeurs liées à la vérification de l’identité d’une application.
+
+
+\begin{figure}[ht!]
+  \includegraphics[width=\textwidth]{img/app/db_final.png}
+  \caption{Schéma de la base de données du serveur}
+  \label{fig:server_db_schema}
+\end{figure}
+
+
 \subsection{Implémentation des fonctionnalités}
+
+\subsubsection{Client MQTT}
+
+\noindent
+Tout comme la base de données, le logiciel du serveur est assez simple. La bibliothèque logiciel Python Eclipse Paho MQTT a été utilisé pour implémenter le client qui reçoit tous les messages publiés par les SN-Things. Cette bibliothèque possède énormément de documentation et d’exemples d’utilisation en ligne.
+
+~
+
+\noindent
+Comme expliqué au début de cette section, ce client est abonné à deux topics. Le premier, \textbf{device/\#identity\#/startup}, est le topic utilisé par les SN-Things lorsqu’une application essaye de s’authentifier auprès du serveur. Afin de vérifier l’identité, le serveur compare l’id envoyé par l’application et la valeur \textbf{\#identity\#} avec des valeurs encodées au préalable sur la base de données. En cas de correspondance (non-correspondance), le serveur répond avec un message autorisant (refusant) la demande de connexion de l'application. Ce message est lu par le client de communication tournant sur le Raspberry Pi qui, en fonction de la réponse, décidera ensuite de maintenir ou fermer la connexion avec l’application .
+
+~
+
+\noindent
+Le deuxième, \textbf{device/\#identity\#/post}, correspond au topic employé pour transmettre les données relatives aux alertes et aux dispositifs. Dans ce cas, le serveur lit d’abord le type des données et ensuite enregistre les sur la table de la base de données qui correspondant au type présent dans l’en-tête.
+
+~
+
+\noindent
+Afin de s’adresser à un SN-Thing en particulier, le serveur publie des messages sur le topic \textbf{device/\#identity\#/recv}. Actuellement, seulement le message d’acceptation ou de refus de la connexion est transmis. Ce message prend la forme suivante :
+
+\begin{lstlisting}[language=json]
+{
+  "id" : #id#,
+  "accepted" : #valeur booleenne#
+}
+\end{lstlisting}
+
+~
+
+\noindent
+Finalement, la figure \ref{fig:auth_app_server} illustre le processus lié à la vérification de l’identité d’une application.
+
+\begin{figure}[ht!]
+  \includegraphics[width=\textwidth]{img/app/verify_identity.png}
+  \caption{Processus de vérification de l'identité d'une application par le serveur. Ce diagramme complémente celui de la figure \ref{fig:seq111}}
+  \label{fig:auth_app_server}
+\end{figure}
+
+\newpage
+
+\subsubsection{Interface graphique}
+
+\noindent
+Le dernier point lié à l’application du serveur correspond à l’outil de visualisation de données. Il est primordial que les techniciens puissent vérifier l’état de l’infrastructure de CERHIS et trouver la source de la défaillance, s’il y en a une. En conséquence, un outil adapté aux données du projet est requis. Ils peuvent être classés sous trois grandes catégories : les bibliothèques logicielles, les dashboard, et les outils Business Intelligence (voir section \ref{sec:data_vis}).
+
+~
+
+\noindent
+Les outils Business Intelligence ont été abandonnés en premier. Généralement, leur utilisation est associée avec un coût élevé et la quantité de données traitée actuellement ne requiert pas l'emploi d'un tel outil. En outre, le cahier des charges ne spécifie pas la nécessité de trouver une tendance dans les données.
+
+~
+
+\noindent
+La décision se portait donc sur l'emploi d'un d’un outil \textit{dashboard} ou d'une bibliothèque logicielle. Cette dernière permet de créer une solution complètement customisée pour le projet, tirant le meilleur parti des données. En revanche, partir sur cette route demande une charge de travail importante. Il y a toute une logistique associée à cette approche comme le développement d'un site web, ou le choix de la meilleure manière pour afficher les données. En particulier, pour ce dernier point, il faut prendre en compte les 3 principes d’un bon outil de visualisation de données. (Fiables, Accessibles, et Élégantes).
+
+~
+
+\noindent
+Ces mêmes principes doivent être suivis lors de l’emploi d’un outil \textit{dashboard}. Mais, le grand avantage est que ces outils aident l’utilisateur à accomplir cet objectif en offrant déjà certaines visualisations prédéfinies. De plus, ces affichages peuvent s’ajuster automatiquement aux données (par exemple les axes d’un graphique). Finalement, les \textit{dashboard} possèdent aussi un certain degré de customisation afin de laisser l’utilisateur adapter la visualisation à ses besoins. Tout cela est souvent proposé sous la forme d’un logiciel facile à installer et ne demandant pas de connaissances en programmation. \footnote{La manipulation des langages de requête (SQL) peut être nécessaire si la requête souhaitée ne peut être construite à l'aide de constructeurs de requêtes(\textit{query builders}).} Le problème majeur réside dans le fait que ces outils peuvent parfois ne pas offrir un certain affichage qui est recherché.
+
+~
+
+\noindent
+Enfin, Grafana a été choisi comme solution de visualisation. Cet outil \textit{dashboard} s’est montré simple à manipuler lors de sa configuration pour la partie du client et l’utiliser pour le serveur permet d’avoir un ensemble de solutions plus homogène. De plus, il est compatible avec la base de données MySQL choisie antérieurement. À ce stade du prototype, créer une solution customisée n’est pas le choix le plus pertinent. L’application du serveur risque d’évoluer énormément durant les prochaines étapes si de nouvelles révisions sont apportées au client. Partir d’un \textit{dashboard} offre une immense flexibilité, car la visualisation peut être modifiée en une question de minutes, contrairement à l’utilisation d’une bibliothèque logicielle.
+
+~
+
+\noindent
+À l'avenir, Grafana pourrait être remplacé si ce choix s’avère être un facteur limitant du projet, mais étant donné le grand nombre de plugins disponibles et qui ne fait qu’augmenter, cela pourrait ne jamais arriver.
+
+
+\begin{figure}[ht!]
+  \includegraphics[width=\textwidth]{img/app/grafana_server.png}
+  \caption{Interface de visualisation de données du serveur distant}
+  \label{fig:graf_server}
+\end{figure}
+
 \subsection{Sécurité}
+
+\noindent
+Contrairement au client, le serveur a un accès à Internet. Le chiffrement des données devient beaucoup plus important afin de protéger les échanges d'informations. En particulier, les identifiants requis pour se connecter à Grafana ne doivent en aucun cas être transmis sur Internet sans utiliser des méthodes de cryptographie. De ce fait, le protocole TLS a été employé pour sécuriser la communication entre tous les composants du logiciel. La figure \ref{fig:ssl} montre le fonctionnement de ce protocole. Une fois qu’une connexion est établie entre \underline{deux parties} (\underline{client-serveur}), les \underline{deux instances} échangent des clés de chiffrement qui seront utilisées pour crypter les données. En outre, le \underline{serveur} envoie également un certificat qui permet de vérifier son identité auprès d’une tierce partie de confiance (l’instance qui a délivré le certificat).  Cette vérification évite que des attaques de l'homme du milieu (voir figure \ref{fig:middle}) puissent avoir lieu.
+
+
+\begin{figure}[ht!]
+  \includegraphics[width=\textwidth]{img/app/ssl.png}
+  \caption{Digramme du déroulement du protocole TLS\cite{ssl_img}}
+  \label{fig:ssl}
+\end{figure}
+
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=0.7\textwidth]{img/app/man_in_the_middle.png}
+  \caption{Exemple d'une attque de l'homme du milieu\cite{man_middle_img}}
+  \label{fig:middle}
+\end{figure}
+
+\noindent
+La figure \ref{fig:crypto} illustre où le protocole est déployé dans la solution implémentée dans ce mémoire. Veuillez noter que les certificats utilisés par la base de données et Grafana ont été autosignés. Ils ne protègent pas le \underline{client} contre des attaques de l'homme du milieu, mais leur utilisation est gratuite. Ils peuvent donc être exploités pendant la phase de développement pour éviter des coûts non nécessaires. Lors du déploiement de la solution complète, un certificat signé par une tierce partie de confiance peut être acquis pour remplacer les certificats autosignés
+
+
+\begin{figure}[ht!]
+  \includegraphics[width=\textwidth]{img/app/end_game.png}
+  \caption{Architecture finale de l'application tournant sur le serveur distant}
+  \label{fig:crypto}
+\end{figure}

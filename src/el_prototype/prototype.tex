@@ -89,7 +89,7 @@ Lors de l'année précédente, un Raspberry Pi 2B a été utilisé en tant que p
 \subsubsection{Solution de communication}
 
 \noindent
-La communication à distance est probablement un des éléments les plus complexes de ce projet. En effet, l'infrastructure des différents réseaux en Afrique Centrale est sous-développée comparée à l'infrastructure en Europe. De plus, la partie de la communication est celle qui a apporté le plus de problèmes l'année précédente, et celle dont les problèmes sont les plus difficiles à résoudre. De ce fait, cette partie doit être abordée avec caution et la décision doit être très pondérée.
+La communication à distance est probablement un des éléments les plus complexes de ce projet. En effet, l'infrastructure des différents réseaux en Afrique Centrale est moins développée comparée à l'infrastructure en Europe. De plus, la partie de la communication est celle qui a apporté le plus de problèmes l'année précédente, et celle dont les problèmes sont les plus difficiles à résoudre. De ce fait, cette partie doit être abordée avec caution et la décision doit être très pondérée.
 
 ~
 
@@ -167,8 +167,7 @@ L'alternative à l'USSD est de recourir aux normes General Packet Radio Service 
 Trancher entre l'USSD et le GPRS n'est pas simple. D'une part, l'USSD semble offrir une solution très fiable qui est couramment employée dans plusieurs pays africains. De l'autre côté, le GPRS permettrait d'exploiter les avantages d'une connexion standard à Internet et tous les protocoles d'application qui viennent avec. De ce fait, une comparaison entre les possibles de chaque solution a été effectuée.
 
 
-~
-\\
+\newpage
 
 \textbf{Solution 1: Routeur LTE (GPRS/HSPA/LTE)}
 
@@ -306,7 +305,7 @@ Une fois les principaux composants définis, le prototype a été testé pour s'
 ~
 
 \noindent
-Très brièvement, ce protocole consiste à lancer un stress test sur deux cœurs du CPU du Raspberry Pi et, en même temps, de publier un message toutes les 4 minutes sur un topic MQTT en utilisant le SIM800L et la plateforme Thingstream. Pendant le test, un serveur est aussi connecté à la plateforme de Thingstream (IP-Thing) et son but est de répondre à toute demande envoyée par le Raspberry Pi. Après l'envoi du message, le Raspberry Pi attend pendant maximum 2 minutes la réponse du serveur. Si aucune réponse n'est reçue, l'occurrence est enregistrée sur un fichier .txt. Le diagramme de séquence \ref{fig:dia_test} montre comment fonctionne l'envoi d'un message pendant une expérimentation. Le test a une durée de 4 heures et 45 minutes. Après cette période, des mesures de température supplémentaires sont prises pendant 15 minutes. Ce protocole a été automatisé à l'aide de scripts python afin de garantir sa reproductibilité. Dans l'annexe \ref{ap:teeeest} se trouvent plus de détails concernant le matériel nécessaire, le protocole et la démarche à suivre.
+Ce protocole consiste à lancer un stress test sur deux cœurs du CPU du Raspberry Pi et, en même temps, de publier un message toutes les 4 minutes sur un topic MQTT en utilisant le SIM800L et la plateforme Thingstream. Pendant le test, un serveur est aussi connecté à la plateforme de Thingstream (IP-Thing) et son but est de répondre à toute demande envoyée par le Raspberry Pi. Après l'envoi du message, le Raspberry Pi attend pendant maximum 2 minutes la réponse du serveur. Si aucune réponse n'est reçue, l'occurrence est enregistrée sur un fichier .txt. Le diagramme de séquence \ref{fig:dia_test} montre comment fonctionne l'envoi d'un message pendant une expérimentation. Le test a une durée de 4 heures et 45 minutes. Après cette période, des mesures de température supplémentaires sont prises pendant 15 minutes. Ce protocole a été automatisé à l'aide de scripts python afin de garantir sa reproductibilité. Dans l'annexe \ref{ap:teeeest} se trouvent plus de détails concernant le matériel nécessaire, le protocole et la démarche à suivre.
 
 \begin{figure}[ht!]
   \includegraphics[width=\textwidth]{img/el_prototype/diagram_test.png}
