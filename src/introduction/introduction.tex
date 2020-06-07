@@ -2,7 +2,7 @@
 \section{Contexte du mémoire}
 
 \noindent
-De nos jours, les solutions de stockage d'informations au format papier sont remplacées au fur et à mesure par des solutions électroniques. Ces dernières permettent de stocker une énorme quantité de documents sur des supports physiques de petite taille, mais cela est loin d'être leur seul avantage. En effet, les documents électroniques ouvrent la porte à tant d'autres possibilités. Ils facilitent la collaboration, l'échange et la sauvegarde de données et proposent énormément de différents formats pour présenter une grande variété d'informations. De plus, lorsque les informations informatisées se retrouvent sur une base de données, les langages de requête aident à rapidement récupérer les données cherchées.
+De nos jours, les solutions de stockage d'informations au format papier sont remplacées au fur et à mesure par des solutions électroniques. Ces dernières permettent de stocker une énorme quantité de documents sur des supports physiques de petite taille, mais cela est loin d'être leur seul avantage. En effet, les documents électroniques ouvrent la porte à tant d'autres possibilités. Ils facilitent la collaboration, l'échange et la sauvegarde de données et proposent énormément de formats différents pour présenter une grande variété d'informations. De plus, lorsque les informations informatisées se retrouvent sur une base de données, les langages de requête aident à récupérer rapidement les données cherchées.
 
 ~
 
@@ -53,9 +53,10 @@ Ce mémoire étant axé sur la coopération et l'aide au développement, plusieu
 \end{itemize}
 
 \section{Projet précédent}
+\label{sec:projet_precedent}
 
 \noindent
-Lors des années académiques 2016-2017 et 2017-2018, une solution de monitoring a été créée par des étudiants à l'École polytechnique de Bruxelles. Cette solution utilisait un smartphone Android comme composant principal pour tourner de logiciel de monitoring. Cependant, comme expliqué dans \cite{delobbe_2017}, le système d'exploitation Android peut mettre certaines applications en pause pour économiser la batterie du smartphone. Ceci a posé un énorme problème puisque le logiciel de monitoring doit être capable de surveiller l'état des différents éléments de façon continue.
+Lors des années académiques 2016-2017 et 2017-2018, une solution de monitoring a été créée par des étudiants à l'École polytechnique de Bruxelles. Cette solution utilisait un smartphone Android comme composant principal pour tourner de logiciel de monitoring. Cependant, comme expliqué dans \cite{delobbe_2017}, le système d'exploitation Android peut mettre certaines applications en pause pour économiser la batterie du smartphone. Lorsque le smartphone \say{n'est pas en charge et reste immobile avec l'écran éteint, il passe en mode Doze} \cite{doze_mode_google}. Ce mode de gestion de la batterie ne permet aux applications de fonctionner que pendant de petites périodes appelées fenêtres de maintenance. Le seul moyen de désactiver complètement ce mode est de maintenir le dispositif en charge en permanence. Cela pose un énorme problème puisque le logiciel de monitoring doit être capable de surveiller l'état des différents éléments de façon continue. Faire cela avec un smartphone aurait provoqué une détérioration rapide de sa batterie car elle serait constamment en charge.
 
 ~
 
@@ -66,27 +67,27 @@ Un prototype conçu lors de l'année académique 2018-2019 a essayé de pallier 
 \section{Structure du mémoire}
 
 \noindent
-Ce mémoire commence par une présentation de l’état de l’art des trois technologies principales de ce mémoire, c’est-à-dire les technologies de communication à distance, les solutions pour le monitoring d’un serveur Linux et les plateformes de visualisation de données. De plus, dans chaque section, il est aussi expliqué la façon dont chacune de ces solutions s'intègre dans ce mémoire.
+Ce mémoire commence par une présentation de l'état de l'art des trois technologies principales de ce mémoire, c'est-à-dire les technologies de communication à distance, les solutions pour le monitoring d'un serveur Linux et les plateformes de visualisation de données. De plus, dans chaque section, il est aussi expliqué la façon dont chacune de ces solutions s'intègre dans ce mémoire.
 
 ~
 
 \noindent
-Ensuite, le cahier des charges établi en début d’année avec AEDES est détaillé. Ce cahier des charges présente non seulement les fonctionnalités du logiciel de monitoring, mais couvre encore certaines propriétés requises afin que le prototype soit adapté à son environnement de fonctionnement. Cette section détaille également l’ordre dans lequel chaque tâche a été réalisée ainsi que la méthodologie adoptée pour accomplir ces dernières.
+Ensuite, le cahier des charges établi en début d'année avec AEDES est détaillé. Ce cahier des charges présente non seulement les fonctionnalités du logiciel de monitoring, mais couvre encore certaines propriétés requises afin que le prototype soit adapté à son environnement de fonctionnement. Cette section détaille également l'ordre dans lequel chaque tâche a été réalisée ainsi que la méthodologie adoptée pour accomplir ces dernières.
 
 ~
 
 \noindent
-L’intégralité du prototype construit lors de mémoire est couverte dans le chapitre 4. Tous les composants et solutions considérés sont exposés ainsi que les raisons derrière chaque choix.  De plus, le prototype réalisé l’année précédente est également présenté dans cette section puisqu’il a une grande influence sur le prototype conçu cette année. Finalement, le résultat des premiers tests réalisés ainsi que les conclusions à tirer sont détaillés.
+L'intégralité du prototype construit lors de mémoire est couverte dans le chapitre 4. Tous les composants et solutions considérés sont exposés ainsi que les raisons derrière chaque choix.  De plus, le prototype réalisé l'année précédente est également présenté dans cette section puisqu'il a une grande influence sur le prototype conçu cette année. Finalement, le résultat des premiers tests réalisés ainsi que les conclusions à tirer sont détaillés.
 
 ~
 
 \noindent
-Le chapitre 5 présente le logiciel de monitoring implémenté. En particulier, ce chapitre décrit comment les différentes parties du logiciel de monitoring interagissent afin de surveiller l’infrastructure de CERHIS. L’application créée dans ce mémoire est composée des solutions Open Source qui y sont également détaillées. Une section de ce chapitre est aussi réservée à la présentation du serveur distant responsable du stockage de toutes les données envoyées par le logiciel de monitoring.
+Le chapitre 5 présente le logiciel de monitoring implémenté. En particulier, ce chapitre décrit comment les différentes parties du logiciel de monitoring interagissent afin de surveiller l'infrastructure de CERHIS. L'application créée dans ce mémoire est composée des solutions Open Source qui y sont également détaillées. Une section de ce chapitre est aussi réservée à la présentation du serveur distant responsable du stockage de toutes les données envoyées par le logiciel de monitoring.
 
 ~
 
 \noindent
-Valider le bon fonctionnement de toutes les parties constituant le prototype est un élément essentiel de ce mémoire. En effet, il faut comprendre si le résultat de ce mémoire respecte les attentes du cahier des charges ou si un des choix a guidé le prototype dans la mauvaise direction. Le chapitre 6 présente donc en détail les tests réalisés sur l’entière de la solution de monitoring produite lors de ce mémoire. De plus, les conclusions à tirer de ces tests sont également explicitées.
+Valider le bon fonctionnement de toutes les parties constituant le prototype est un élément essentiel de ce mémoire. En effet, il faut comprendre si le résultat de ce mémoire respecte les attentes du cahier des charges ou si un des choix a guidé le prototype dans la mauvaise direction. Le chapitre 6 présente donc en détail les tests réalisés sur l'entière de la solution de monitoring produite lors de ce mémoire. De plus, les conclusions à tirer de ces tests sont également explicitées.
 
 ~
 

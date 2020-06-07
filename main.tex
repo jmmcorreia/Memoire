@@ -50,6 +50,7 @@
 \usepackage{hyperref}
 \usepackage{minted}
 \usepackage{float}
+\usepackage{eurosym}
 %\usepackage[pdftex]{graphicx}
 
 
@@ -70,10 +71,10 @@
 \newcommand{\fontColor}{\sffamily \selectfont \color{ULBblue}}
 
 % Titre
-\newcommand{\titleA}{\fontTitle{}} % Titre identique au titre remis au secrétariat
-\newcommand{\titleB}{\fontTitle{Deuxième ligne de titre du mémoire}} % (dans la langue de rédaction a priori)
+\newcommand{\titleA}{\fontTitle{Système intégré de monitoring}} % Titre identique au titre remis au secrétariat
+\newcommand{\titleB}{\fontTitle{pour centre hospitalier en Afrique}} % (dans la langue de rédaction a priori)
 % Sous-titre
-\newcommand{\subtitle}{\fontSubtitle{Ligne du sous-titre du mémoire}}
+%\newcommand{\subtitle}{\fontSubtitle{Ligne du sous-titre du mémoire}}
 % Titre du diplôme
 \newcommand{\diplomaA}{\fontText{Mémoire présenté en vue de l'obtention du diplôme}} % A laisser en Français
 \newcommand{\diplomaB}{\fontText{d'Ingénieur Civil en informatique à finalité spécialisée}}
@@ -137,6 +138,53 @@
 
 \begin{document}
 \input{front_page.tex}
+
+\chapter*{\huge Remerciements}
+
+    \noindent
+    En tout premier lieu, je voudrais remercier le directeur de ce mémoire, le Professeur François Quitin, et mon co-promoteur, le Professeur Antoine Nonclercq, pour leur disponibilité, leurs conseils et les connaissances techniques qu’ils ont apportées à ce mémoire.
+
+    ~
+
+    \noindent
+    Je tiens également à remercier mon superviseur, Quentin Delhaye, de m’avoir tant aidé tout au long de ce mémoire et d’avoir suivi de près tous les progrès réalisés.
+
+
+    ~
+
+    \noindent
+    Je voudrais aussi remercier Loïc Vaes, chef de projet chez AEDES, et Erica Berghman, ULB-Coopération, de m’avoir accordé l’opportunité de travailler sur ce mémoire.
+
+
+    ~
+
+    \noindent
+    Je tiens à témoigner toute ma gratitude envers mon ami, Jacky Trinh, et mon frère, Tiago Correia, pour avoir pris le temps de relire ce mémoire et pour tous les conseils qu’ils m’ont donnés concernant son style.
+
+
+    ~
+
+    \noindent
+    Enfin, un grand merci à mes parents qui m’ont toujours encouragé tout au long de mes études, surtout dans les moments plus difficiles.
+
+
+\chapter*{\huge Résumé}
+
+
+  \vspace{5cm}
+
+  \noindent
+   L’Organisation mondiale de la Santé a déclaré que les systèmes d’information hospitaliers sont un des composants principaux d’une structure de santé. CERHIS est un système d’information qui a été développé pour répondre aux besoins particuliers des centres hospitaliers en Afrique. L’infrastructure de CERHIS est constituée de plusieurs composants, dont des tablettes Android, un serveur local et un système d’alimentation sans interruption. Afin d’assurer l’opérabilité de CERHIS, les différents éléments doivent être surveillés en permanence et les techniciens doivent être alertés en cas d’une défaillance. C’est ce dernier problème que ce mémoire essaye de tacler en créant une solution de monitoring basée sur un Raspberry Pi. Cependant, les conditions particulières de l’environnement imposent certaines contraintes sur cette même solution. En effet, le dispositif doit pouvoir contacter des techniciens par SMS et envoyer des informations sur un serveur distant, mais sans avoir accès à une connexion Internet filaire. En outre, le système doit aussi posséder une batterie pour que le monitoring continue à se faire même en cas de coupure du réseau électrique. La solution présentée ici combine un SIM800L avec le Raspberry Pi de telle sorte que ce dernier puisse se connecter aux réseaux mobiles pour transmettre des données. Thingstream, une plateforme \textit{IoT Communication-as-a-Service}, a été exploitée afin de gérer la connectivité et l'échange d'informations entre SIM800L et le serveur distant. En ce qui concerne le logiciel de monitoring, une solution de pointe a été développée suivant une architecture de microservices et basée sur l'application de monitoring Prometheus couplé à l’outil de visualisation de données Grafana. Les tests effectués avec le prototype ont été très prometteurs et permettent d’établir la direction à prendre à l'avenir pour l'améliorer.
+
+   ~
+
+   \noindent
+   \textbf{Mots-clés:} CERHIS, \hspace{0.2cm} Système de Monitoring, \hspace{0.2cm} Prometheus, \hspace{0.2cm} Microservices
+
+
+
+
+
 \tableofcontents
 \newpage
 

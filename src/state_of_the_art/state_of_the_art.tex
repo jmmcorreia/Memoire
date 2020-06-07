@@ -87,7 +87,7 @@ Finalement, toujours dues à ce différent degré de maturité, certaines techno
 ~
 
 \noindent
-Comme il sera expliqué plus tard dans ce mémoire, le prototype doit être capable d’utiliser les réseaux de communication à distance. En effet, une connexion filaire à Internet n’est parfois pas disponible dans les structures de santé. Le choix de la technologie plus approprié sera présenté dans la section \ref{sec:sol_hard}.
+Comme il sera expliqué plus tard dans ce mémoire, le prototype doit être capable d'utiliser les réseaux de communication à distance. En effet, une connexion filaire à Internet n'est parfois pas disponible dans les structures de santé. Le choix de la technologie plus approprié sera présenté dans la section \ref{sec:sol_hard}.
 
 
 \section{Monitoring de l'état d'un serveur linux}
@@ -126,7 +126,7 @@ Comme il est affiché sur la figure \ref{fig:mon_archi}, deux architectures exis
 ~
 
 \noindent
-Dans le modèle de type \textit{push}, les agents dans la machine hôte envoient un ensemble de métriques ou des événements au serveur de monitoring. Cette technique permet notamment de définir des conditions d'alerte dans l'agent, et c'est celui-ci qui se charge de vérifier ces conditions. Lorsque le test des conditions passe, l'agent transmet un événement au serveur de monitoring. De plus, seul le système de push est capable de correctement acquérir des données à propos de jobs Batch de courte durée. \cite{blog_monitoring, prometheus_tuto} En effet, comme affiché sur la figure \ref{fig:batch_end}, le modèle \textit{pull} peut rater la fin du job ce qui se traduit par une perte d'informations.
+Dans le modèle de type \textit{push}, les agents dans la machine hôte envoient un ensemble de métriques ou des événements au serveur de monitoring. Cette technique permet notamment de définir des conditions d'alerte dans l'agent, et c'est celui-ci qui se charge de vérifier ces conditions. Lorsque le test des conditions passe, l'agent transmet un événement au serveur de monitoring. De plus, seul le système de push est capable de correctement acquérir des données à propos de jobs batch\footnote{Un job batch est un programme qui s'exécute sans l'intervention d'un utilisateur de façon régulière. Il permet d'automatiser le traitement d‘une grande quantité de données. (par exemple l'automatisation de payements). L'exécution de plusieurs jobs batch en succession est connue sous le nom de traitement par lots.} de courte durée. \cite{blog_monitoring, prometheus_tuto} En effet, comme affiché sur la figure \ref{fig:batch_end}, le modèle \textit{pull} peut rater la fin du job ce qui se traduit par une perte d'informations.
 
 ~
 
@@ -186,7 +186,7 @@ Comme présenté dans \cite{kirk2019data}, la visualisation de données doit res
 ~
 
 \begin{itemize}
-  \item \textbf{Fiables (Dignes de confiances) :} Ce principe est fondamental, nous devons pouvoir faire confiance aux données qui nous sont présentées. Aucune manipulation doit être effectué sur la façon dont les données sont affichées afin de manipuler la perception de l’observateur. Par exemple, l’axe vertical d’un graphique à barres ne doit jamais être tronqué.
+  \item \textbf{Fiables (Dignes de confiances) :} Ce principe est fondamental, nous devons pouvoir faire confiance aux données qui nous sont présentées. Aucune manipulation doit être effectué sur la façon dont les données sont affichées afin de manipuler la perception de l'observateur. Par exemple, l'axe vertical d'un graphique à barres ne doit jamais être tronqué.
 
   ~
 
@@ -194,7 +194,7 @@ Comme présenté dans \cite{kirk2019data}, la visualisation de données doit res
 
   ~
 
-  \item \textbf{Élégante :} Une visualisation élégante des données doit captiver et retenir l’attention des observateurs. Toutefois, cela ne doit jamais compromettre les deux autres principes présentés ci-dessus.
+  \item \textbf{Élégante :} Une visualisation élégante des données doit captiver et retenir l'attention des observateurs. Toutefois, cela ne doit jamais compromettre les deux autres principes présentés ci-dessus.
 
 
 \end{itemize}
@@ -219,7 +219,7 @@ Avec l'arrivée de l'ère des Big Data, les technologies de visualisation sont d
 ~
 
 \noindent
-Une bonne visualisation des données est essentielle pour avoir une solution de monitoring. En effet, une bonne visualisation permet de mieux évaluer l’état du système surveillé et d’identifier la source d’un problème plus rapidement. La section \ref{sec:c_arch} couvrira la manière dont une solution de visualisation de données a été intégrée au logiciel de monitoring.
+Une bonne visualisation des données est essentielle pour avoir une solution de monitoring. En effet, une bonne visualisation permet de mieux évaluer l'état du système surveillé et d'identifier la source d'un problème plus rapidement. La section \ref{sec:c_arch} couvrira la manière dont une solution de visualisation de données a été intégrée au logiciel de monitoring.
 
 
 \begin{figure}[ht!]
